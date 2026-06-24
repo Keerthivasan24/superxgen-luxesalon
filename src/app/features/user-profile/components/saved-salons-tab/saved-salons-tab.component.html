@@ -1,0 +1,51 @@
+<div class="saved-tab">
+
+    <div class="tab-header">
+        <h2 class="tab-title">Saved Salons</h2>
+        <span class="tab-count" *ngIf="(svc.saved$ | async) as saved">
+            {{ saved.length }} saved
+        </span>
+    </div>
+
+    <div class="saved-grid" *ngIf="svc.saved$ | async as saved">
+
+        <div class="saved-card" *ngFor="let s of saved">
+
+            <div class="sc-image">
+                <div class="sc-avatar">{{ s.name[0] }}</div>
+                <div class="open-dot" [class.closed]="!s.openNow">
+                    {{ s.openNow ? 'Open' : 'Closed' }}
+                </div>
+                <button class="unsave-btn" (click)="svc.unsaveSalon(s.id)" aria-label="Remove from saved">
+                    ♥
+                </button>
+                <span class="price-tag">{{ priceStr(s.priceLevel) }}</span>
+            </div>
+
+            <div class="sc-body">
+                <h3 class="sc-name">{{ s.name }}</h3>
+                <p class="sc-area">◎ {{ s.area }}</p>
+                <div class="sc-rating">
+                    <span class="star">★</span> {{ s.rating }}
+                </div>
+                <div class="sc-tags">
+                    <span class="sc-tag" *ngFor="let t of s.tags">{{ t }}</span>
+                </div>
+                <div class="sc-actions">
+                    <button class="btn-outline-gold sc-btn" (click)="visit(s.id)">View →</button>
+                    <button class="btn-gold sc-btn" (click)="book(s.id)">Book</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="saved.length === 0">
+            <span class="empty-icon">♡</span>
+            <p>No saved salons yet</p>
+            <a routerLink="/explore" class="btn-outline-gold">Explore salons →</a>
+        </div>
+
+    </div>
+
+</div>

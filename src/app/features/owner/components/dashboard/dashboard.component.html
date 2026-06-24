@@ -1,0 +1,101 @@
+<div class="dashboard">
+
+    <!-- Stats row -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">◷</div>
+            <div class="stat-body">
+                <span class="stat-val">{{ ownerData.todayBookings }}</span>
+                <span class="stat-lbl">Bookings today</span>
+            </div>
+        </div>
+        <div class="stat-card gold">
+            <div class="stat-icon">₹</div>
+            <div class="stat-body">
+                <span class="stat-val">₹{{ ownerData.todayRevenue | number }}</span>
+                <span class="stat-lbl">Revenue today</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">★</div>
+            <div class="stat-body">
+                <span class="stat-val">{{ ownerData.avgRating }}</span>
+                <span class="stat-lbl">Avg rating</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">₹</div>
+            <div class="stat-body">
+                <span class="stat-val">₹{{ ownerData.monthRevenue | number }}</span>
+                <span class="stat-lbl">This month</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two column layout -->
+    <div class="dash-body">
+
+        <!-- Today's bookings -->
+        <section class="dash-card">
+            <div class="card-header">
+                <h2>Today's Bookings</h2>
+                <a routerLink="/owner/bookings" class="view-all">View all →</a>
+            </div>
+            <div class="booking-list">
+                <div class="booking-row" *ngFor="let b of todayBookings">
+                    <div class="booking-time">{{ b.time }}</div>
+                    <div class="booking-info">
+                        <span class="booking-client">{{ b.clientName }}</span>
+                        <span class="booking-service">{{ b.service }} · {{ b.stylist }}</span>
+                    </div>
+                    <div class="booking-amount">₹{{ b.amount | number }}</div>
+                    <span class="booking-status" [ngClass]="'status-' + b.status">{{ b.status }}</span>
+                </div>
+                <div class="empty-state" *ngIf="todayBookings.length === 0">
+                    No bookings today yet.
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick actions -->
+        <section class="dash-card">
+            <div class="card-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="quick-actions">
+                <a routerLink="/owner/services" class="quick-action">
+                    <span class="qa-icon">✦</span>
+                    <span class="qa-label">Add service</span>
+                </a>
+                <a routerLink="/owner/stylists" class="quick-action">
+                    <span class="qa-icon">◉</span>
+                    <span class="qa-label">Add stylist</span>
+                </a>
+                <a routerLink="/owner/profile" class="quick-action">
+                    <span class="qa-icon">◈</span>
+                    <span class="qa-label">Edit profile</span>
+                </a>
+                <a routerLink="/owner/analytics" class="quick-action">
+                    <span class="qa-icon">◆</span>
+                    <span class="qa-label">View analytics</span>
+                </a>
+            </div>
+
+            <!-- Salon status -->
+            <div class="salon-status-block" *ngIf="ownerData.salon$ | async as salon">
+                <div class="status-header">
+                    <h3>{{ salon.name }}</h3>
+                    <span class="live-badge" [class.live]="salon.status === 'live'">
+                        {{ salon.status === 'live' ? '● Live' : '◌ Draft' }}
+                    </span>
+                </div>
+                <p class="status-sub">{{ salon.area }} · {{ salon.address }}</p>
+                <a [href]="'/salon/' + salon.id" target="_blank" class="view-live-btn">
+                    View live page ↗
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+</div>

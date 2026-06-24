@@ -1,0 +1,59 @@
+<article class="salon-card" [class.list-layout]="layout === 'list'" #cardEl (mousemove)="onMouseMove($event, cardEl)"
+    (mouseleave)="onMouseLeave(cardEl)" (click)="goToSalon()" role="button" tabindex="0"
+    [attr.aria-label]="'View ' + salon.name">
+
+    <div class="shine"></div>
+
+    <!-- Image area -->
+    <div class="card-image" [style.background]="avatarColor">
+        <div class="salon-avatar">{{ salon.name[0] }}</div>
+
+        <!-- Overlays -->
+        <div class="card-badge" *ngIf="salon.badge">{{ salon.badge }}</div>
+        <div class="open-tag" [class.closed]="!salon.openNow">
+            {{ salon.openNow ? 'Open' : 'Closed' }}
+        </div>
+        <button class="save-btn" [class.saved]="salon.isSaved" (click)="toggleSave($event)"
+            [attr.aria-label]="salon.isSaved ? 'Remove from saved' : 'Save salon'">
+            {{ salon.isSaved ? '♥' : '♡' }}
+        </button>
+        <div class="price-tag">{{ priceStr }}</div>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+
+        <div class="card-top">
+            <div>
+                <h3 class="salon-name">{{ salon.name }}</h3>
+                <p class="salon-area">◎ {{ salon.area }}
+                    <span class="distance" *ngIf="salon.distance"> · {{ salon.distance }} km</span>
+                </p>
+            </div>
+            <div class="rating-pill">
+                <span class="star">★</span>
+                <span class="val">{{ salon.rating }}</span>
+                <span class="count">({{ salon.reviews }})</span>
+            </div>
+        </div>
+
+        <!-- Services chips -->
+        <div class="service-chips">
+            <span class="chip" *ngFor="let tag of salon.tags">{{ tag }}</span>
+        </div>
+
+        <!-- Next slot -->
+        <div class="next-slot" *ngIf="salon.nextSlot">
+            <span class="slot-icon">◷</span>
+            <span>Next available: <strong>{{ salon.nextSlot }}</strong></span>
+        </div>
+
+        <!-- CTA row -->
+        <div class="card-cta">
+            <a class="view-link" (click)="goToSalon(); $event.stopPropagation()">View salon →</a>
+            <button class="btn-gold book-btn" (click)="goToBook($event)">Book</button>
+        </div>
+
+    </div>
+
+</article>

@@ -1,0 +1,14 @@
+<div class="auth-page">
+
+    <!-- Left: salon visual panel -->
+    <div class="auth-left">
+        <app-auth-visual></app-auth-visual>
+    </div>
+
+    <!-- Right: form panel -->
+    <div class="auth-right">
+        <app-auth-form [redirectUrl]="redirectUrl" [initialMode]="initialMode" [initialRole]="initialRole">
+        </app-auth-form>
+    </div>
+
+</div>

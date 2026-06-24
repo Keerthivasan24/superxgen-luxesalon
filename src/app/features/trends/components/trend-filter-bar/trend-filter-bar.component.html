@@ -1,0 +1,30 @@
+<div class="trend-filter-bar">
+
+    <!-- Search -->
+    <div class="trend-search-wrap">
+        <span class="search-icon">⌕</span>
+        <input class="trend-search" type="text" placeholder="Search trends, services…" [value]="searchCtrl.value"
+            (input)="searchCtrl.setValue($any($event.target).value)" autocomplete="off">
+        <button class="clear-search" *ngIf="searchCtrl.value" (click)="searchCtrl.setValue('')">✕</button>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="category-tabs">
+        <button class="cat-tab" *ngFor="let cat of categories" [class.active]="isActive(cat.value)"
+            (click)="setCategory(cat.value)">
+            <span class="cat-icon">{{ cat.icon }}</span>
+            <span class="cat-label">{{ cat.label }}</span>
+        </button>
+    </div>
+
+    <!-- Hot toggle + count -->
+    <div class="filter-right">
+        <button class="hot-toggle" [class.active]="trendsService.filters.showHotOnly"
+            (click)="trendsService.toggleHotOnly()">
+            <span class="hot-dot-sm"></span>
+            Hot only
+        </button>
+        <span class="result-count">{{ trendsService.resultCount$ | async }} trends</span>
+    </div>
+
+</div>

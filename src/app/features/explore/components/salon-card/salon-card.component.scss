@@ -1,0 +1,185 @@
+.salon-card {
+  background: var(--surface);
+  border: 1px solid rgba(201,168,76,.1);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  will-change: transform;
+  transition: transform .12s ease-out, border-color .25s;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+
+  &:hover { border-color: rgba(201,168,76,.35); }
+  &:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  &.list-layout {
+    flex-direction: row;
+    height: 140px;
+
+    .card-image { width: 160px; min-width: 160px; height: 100%; }
+    .card-body  { padding: 16px; }
+    .service-chips { display: none; }
+    .next-slot { display: none; }
+  }
+}
+
+.shine {
+  position: absolute; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+/* ── Image ── */
+.card-image {
+  height: 190px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.salon-avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(201,168,76,.12);
+  border: 1px solid rgba(201,168,76,.25);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gold);
+}
+
+/* ── Overlay chips ── */
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--gold);
+  color: #0A0A0F;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 3px;
+  z-index: 2;
+}
+
+.open-tag {
+  position: absolute; bottom: 12px; left: 12px;
+  background: rgba(16, 185, 129, .18);
+  border: 1px solid rgba(16, 185, 129, .4);
+  color: #10b981;
+  font-size: 9px; font-weight: 500; letter-spacing: .08em;
+  padding: 3px 8px; border-radius: 3px;
+  z-index: 2;
+
+  &.closed {
+    background: rgba(239, 68, 68, .12);
+    border-color: rgba(239, 68, 68, .3);
+    color: #f87171;
+  }
+}
+
+.save-btn {
+  position: absolute; top: 10px; right: 10px;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(10,10,15,.7);
+  border: 1px solid rgba(201,168,76,.2);
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+  z-index: 2;
+  &:hover, &.saved { color: #e74c7c; border-color: #e74c7c; }
+}
+
+.price-tag {
+  position: absolute; bottom: 12px; right: 12px;
+  font-size: 12px; color: var(--gold);
+  letter-spacing: .06em;
+  z-index: 2;
+}
+
+/* ── Body ── */
+.card-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.salon-name {
+  font-family: var(--font-display);
+  font-size: 18px; font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.salon-area {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.distance { color: var(--text-secondary); }
+
+.rating-pill {
+  display: flex; align-items: center; gap: 3px;
+  background: rgba(201,168,76,.1);
+  border: 1px solid rgba(201,168,76,.2);
+  border-radius: 6px;
+  padding: 4px 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.star  { color: var(--gold); font-size: 11px; }
+.val   { font-size: 12px; font-weight: 500; color: var(--cream); }
+.count { font-size: 10px; color: var(--text-muted); }
+
+.service-chips {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  .chip {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,168,76,.12);
+    color: var(--text-secondary);
+    font-size: 10px; padding: 3px 9px;
+    border-radius: 20px; letter-spacing: .04em;
+  }
+}
+
+.next-slot {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--text-muted);
+  .slot-icon { color: var(--gold); }
+  strong { color: var(--text-secondary); font-weight: 500; }
+}
+
+.card-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: auto; padding-top: 4px;
+  border-top: 1px solid rgba(201,168,76,.07);
+}
+
+.view-link {
+  font-size: 11px; color: var(--text-muted);
+  cursor: pointer; letter-spacing: .04em;
+  transition: color .15s;
+  &:hover { color: var(--gold); }
+}
+
+.book-btn { font-size: 11px; padding: 7px 18px; }

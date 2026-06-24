@@ -1,0 +1,16 @@
+<section class="area-section section-pad">
+    <div class="container-fluid">
+        <div class="section-header">
+            <p class="eyebrow">Explore by location</p>
+            <h2>Browse Bangalore areas</h2>
+            <div class="gold-rule"></div>
+        </div>
+        <div class="area-scroll">
+            <button class="area-chip" *ngFor="let a of areas" [class.active]="a.name === activeArea"
+                (click)="select(a.name)">
+                <span class="chip-name">{{ a.name }}</span>
+                <span class="chip-count">{{ a.count }} salons</span>
+            </button>
+        </div>
+    </div>
+</section>

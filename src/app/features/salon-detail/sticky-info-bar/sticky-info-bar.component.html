@@ -1,0 +1,30 @@
+<div class="sticky-bar" [class.visible]="visible" role="banner">
+    <div class="sticky-inner">
+
+        <div class="sticky-left">
+            <span class="sticky-name">{{ salon.name }}</span>
+            <div class="sticky-meta">
+                <span class="s-rating">★ {{ salon.rating }}</span>
+                <span class="s-sep">·</span>
+                <span class="s-area">{{ salon.area }}</span>
+                <span class="s-sep">·</span>
+                <span class="s-price">{{ priceStr }}</span>
+                <span class="s-sep">·</span>
+                <span class="s-open" [class.closed]="!salon.openNow">
+                    {{ salon.openNow ? 'Open' : 'Closed' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="sticky-right">
+            <div class="booking-summary" *ngIf="(svc.booking$ | async) as b">
+
+
+            </div>
+            <button class="btn-gold sticky-book" (click)="scrollToSlots()">
+                Book Now
+            </button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<section class="stylists-section">
+
+    <div class="section-label">Our Team</div>
+    <h2 class="section-title">Meet your stylists</h2>
+    <div class="gold-rule"></div>
+
+    <p class="any-note">
+        Not sure? Leave it blank — we'll assign the best available stylist for your service.
+    </p>
+
+    <div class="stylists-scroll">
+        <div class="stylist-card" *ngFor="let stylist of salon.stylists; let i = index"
+            [class.selected]="isSelected(stylist)" (click)="select(stylist)">
+
+            <!-- Selected check -->
+            <div class="selected-ring" *ngIf="isSelected(stylist)">✓</div>
+
+            <!-- Avatar -->
+            <div class="stylist-avatar" [style.background]="getColor(i)">
+                {{ stylist.avatar }}
+            </div>
+
+            <!-- Info -->
+            <div class="stylist-name">{{ stylist.name }}</div>
+            <div class="stylist-role">{{ stylist.role }}</div>
+
+            <div class="stylist-rating">
+                <span class="star">★</span> {{ stylist.rating }}
+                <span class="rev-count">({{ stylist.reviews }})</span>
+            </div>
+
+            <div class="stylist-exp">{{ stylist.experience }} years exp.</div>
+
+            <!-- Specialities -->
+            <div class="spec-chips">
+                <span class="spec-chip" *ngFor="let s of stylist.specialities">{{ s }}</span>
+            </div>
+
+            <button class="choose-btn" [class.chosen]="isSelected(stylist)"
+                (click)="select(stylist); $event.stopPropagation()">
+                {{ isSelected(stylist) ? '✓ Chosen' : 'Choose' }}
+            </button>
+
+        </div>
+    </div>
+
+</section>

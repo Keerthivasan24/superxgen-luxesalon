@@ -1,0 +1,118 @@
+<div class="step-details" [formGroup]="svc.detailsForm">
+
+    <div class="step-heading">
+        <h2>Your details</h2>
+        <p>We'll send your confirmation to these details</p>
+    </div>
+
+    <!-- Personal info -->
+    <div class="form-section">
+        <div class="fs-label">Personal information</div>
+
+        <div class="field-grid">
+
+            <div class="field-wrap">
+                <label class="field-label">Full name *</label>
+                <input class="field-input" type="text" formControlName="name" placeholder="Ananya Sharma"
+                    autocomplete="name">
+                <span class="field-error" *ngIf="f['name'].invalid && f['name'].touched">
+                    Please enter your full name
+                </span>
+            </div>
+
+            <div class="field-wrap">
+                <label class="field-label">Mobile number *</label>
+                <div class="phone-wrap">
+                    <span class="phone-prefix">+91</span>
+                    <input class="field-input phone-input" type="tel" formControlName="phone" placeholder="9876543210"
+                        autocomplete="tel" maxlength="10">
+                </div>
+                <span class="field-error" *ngIf="f['phone'].invalid && f['phone'].touched">
+                    Enter a valid 10-digit mobile number
+                </span>
+            </div>
+
+            <div class="field-wrap full-width">
+                <label class="field-label">Email address *</label>
+                <input class="field-input" type="email" formControlName="email" placeholder="ananya@email.com"
+                    autocomplete="email">
+                <span class="field-error" *ngIf="f['email'].invalid && f['email'].touched">
+                    Enter a valid email address
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Special requests -->
+    <div class="form-section">
+        <div class="fs-label">Special requests <span class="optional">(optional)</span></div>
+        <textarea class="field-input textarea" formControlName="notes" rows="3"
+            placeholder="Any allergies, preferences, or special occasions we should know about…">
+    </textarea>
+    </div>
+
+    <!-- Promo code -->
+    <div class="form-section">
+        <div class="fs-label">Promo code <span class="optional">(optional)</span></div>
+        <div class="promo-row">
+            <input class="field-input promo-input" type="text" formControlName="promo" placeholder="LUXE10"
+                style="text-transform:uppercase;">
+            <button class="promo-btn" (click)="applyPromo()">Apply</button>
+        </div>
+        <span class="promo-success" *ngIf="promoApplied">✓ 10% discount applied!</span>
+        <span class="field-error" *ngIf="promoError">Invalid promo code</span>
+    </div>
+
+    <!-- Payment preference -->
+    <div class="form-section">
+        <div class="fs-label">Payment</div>
+        <div class="payment-options">
+
+            <label class="payment-option" [class.selected]="f['payAtSalon'].value"
+                (click)="f['payAtSalon'].setValue(true)">
+                <div class="po-radio" [class.on]="f['payAtSalon'].value"></div>
+                <div class="po-info">
+                    <span class="po-title">Pay at salon</span>
+                    <span class="po-desc">Cash, card, or UPI on the day</span>
+                </div>
+            </label>
+
+            <label class="payment-option" [class.selected]="!f['payAtSalon'].value"
+                (click)="f['payAtSalon'].setValue(false)">
+                <div class="po-radio" [class.on]="!f['payAtSalon'].value"></div>
+                <div class="po-info">
+                    <span class="po-title">Prepay online</span>
+                    <span class="po-desc">Secure payment · Skip checkout queue</span>
+                </div>
+                <span class="po-badge">Recommended</span>
+            </label>
+
+        </div>
+    </div>
+
+    <!-- Policy checkbox -->
+    <div class="policy-check">
+        <label class="check-label">
+            <input type="checkbox" formControlName="agreePolicy" class="check-input">
+            <span class="check-text">
+                I agree to the
+                <a href="#" class="gold-link">cancellation policy</a>
+                and
+                <a href="#" class="gold-link">terms of service</a>
+            </span>
+        </label>
+        <span class="field-error" *ngIf="f['agreePolicy'].invalid && f['agreePolicy'].touched">
+            You must agree to continue
+        </span>
+    </div>
+
+    <!-- CTA row -->
+    <div class="step-cta">
+        <button class="back-btn" (click)="svc.back()">← Back</button>
+        <button class="btn-gold cta-btn" (click)="submit()">
+            Review & Confirm →
+        </button>
+    </div>
+
+</div>

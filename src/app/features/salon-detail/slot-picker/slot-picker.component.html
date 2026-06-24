@@ -1,0 +1,39 @@
+<section class="slot-section">
+
+    <div class="section-label">Availability</div>
+    <h2 class="section-title">Choose your slot</h2>
+    <div class="gold-rule"></div>
+
+    <!-- Date strip -->
+    <div class="date-strip">
+        <button class="date-btn" *ngFor="let d of dateStrip" [class.active]="selectedDateOffset === d.offset"
+            (click)="selectDate(d.offset, d.label)">
+            <span class="date-day">{{ d.label }}</span>
+            <span class="date-num">{{ d.sublabel }}</span>
+        </button>
+    </div>
+
+    <!-- Legend -->
+    <div class="slot-legend">
+        <span class="leg-item available">Available</span>
+        <span class="leg-item peak">Peak hours</span>
+        <span class="leg-item booked">Booked</span>
+        <span class="leg-item selected-leg">Selected</span>
+    </div>
+
+    <!-- Time slots grid -->
+    <div class="slots-grid" *ngIf="svc.slots$ | async as slots">
+        <button class="slot-btn" *ngFor="let slot of slots" [class.available]="slot.available && !slot.peak"
+            [class.peak]="slot.available && slot.peak" [class.booked]="!slot.available"
+            [class.chosen]="isTimeSelected(slot.time)" [disabled]="!slot.available"
+            (click)="selectTime(slot.time, slot.available)">
+            {{ slot.time }}
+        </button>
+    </div>
+
+    <!-- No service warning -->
+    <p class="no-service-note" *ngIf="!(svc.booking$ | async)?.service">
+        ↑ Select a service above to continue booking
+    </p>
+
+</section>

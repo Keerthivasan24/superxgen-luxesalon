@@ -1,0 +1,109 @@
+.order-summary {
+  background: var(--surface);
+  border: 1px solid rgba(201,168,76,.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.os-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+}
+
+.os-title {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Salon */
+.os-salon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+.os-salon-avatar {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: rgba(201,168,76,.1);
+  border: 1px solid rgba(201,168,76,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.os-salon-info { display: flex; flex-direction: column; gap: 2px; }
+.os-salon-name { font-size: 14px; color: var(--cream); }
+.os-salon-area { font-size: 11px; color: var(--text-muted); }
+
+.os-divider {
+  height: 1px;
+  background: rgba(201,168,76,.06);
+  margin: 0 20px;
+}
+
+/* Rows */
+.os-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 20px;
+}
+
+.os-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.os-label { color: var(--text-muted); }
+.os-val   { color: var(--text-secondary); text-align: right; max-width: 60%; }
+
+/* Total */
+.os-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(201,168,76,.05);
+  border-top: 1px solid rgba(201,168,76,.1);
+}
+
+.os-total-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.os-total-val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+/* Trust */
+.os-trust {
+  padding: 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(201,168,76,.06);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.ti-icon { color: var(--gold); font-size: 10px; flex-shrink: 0; }

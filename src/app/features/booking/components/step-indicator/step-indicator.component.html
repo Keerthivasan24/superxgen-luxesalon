@@ -1,0 +1,29 @@
+<div class="step-indicator">
+    <div class="steps-inner">
+
+        <ng-container *ngFor="let step of steps; let i = index">
+
+            <!-- Step bubble -->
+            <div class="step-item" [class.active]="isActive(step.num)" [class.complete]="isComplete(step.num)">
+                <div class="step-bubble">
+                    <span class="step-check" *ngIf="isComplete(step.num)">✓</span>
+                    <span class="step-num" *ngIf="!isComplete(step.num)">{{ step.num }}</span>
+                </div>
+                <span class="step-label">{{ step.label }}</span>
+            </div>
+
+            <!-- Connector line -->
+            <div class="step-connector" *ngIf="i < steps.length - 1" [class.filled]="currentStep > step.num">
+            </div>
+
+        </ng-container>
+
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+        <div class="progress-fill" [style.width.%]="((currentStep - 1) / 2) * 100">
+        </div>
+    </div>
+
+</div>

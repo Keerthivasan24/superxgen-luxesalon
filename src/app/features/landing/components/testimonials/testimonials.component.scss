@@ -1,0 +1,21 @@
+.testimonials-section { background:var(--surface-2);padding:96px 0;overflow:hidden; }
+.section-header { text-align:center;margin-bottom:56px;padding:0 40px;
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  h2{font-size:clamp(28px,4vw,42px);font-weight:300;color:var(--cream);}
+  .gold-rule{margin:20px auto;}
+}
+.marquee-track { display:flex;flex-direction:column;gap:16px; }
+.marquee-row {
+  display:flex;gap:16px;width:max-content;
+  animation:marqueeL 32s linear infinite;
+  &.reverse { animation:marqueeR 36s linear infinite; }
+}
+@keyframes marqueeL { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes marqueeR { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+.review-card {
+  background:var(--obsidian);border:1px solid rgba(201,168,76,.12);
+  border-radius:10px;padding:24px;width:300px;flex-shrink:0;
+}
+.stars { color:var(--gold);font-size:13px;margin-bottom:12px;letter-spacing:2px; }
+.review-text { font-size:13px;color:var(--text-secondary);line-height:1.65;margin-bottom:14px;font-style:italic; }
+.reviewer { font-size:11px;color:var(--text-muted);span{color:var(--gold);} }

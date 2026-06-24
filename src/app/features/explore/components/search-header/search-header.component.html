@@ -1,0 +1,45 @@
+<div class="search-header">
+
+    <div class="header-row">
+
+        <!-- Search input -->
+        <div class="search-input-wrap">
+            <span class="search-icon">⌕</span>
+            <input class="search-input" type="text" placeholder="Search salons, services, areas…"
+                [value]="searchCtrl.value" (input)="searchCtrl.setValue($any($event.target).value)" autocomplete="off">
+            <button class="clear-search" *ngIf="searchCtrl.value" (click)="searchCtrl.setValue('')"
+                aria-label="Clear search">✕</button>
+        </div>
+
+        <!-- Filter toggle (mobile + tablet) -->
+        <button class="filter-toggle-btn" (click)="toggleFilters.emit()" aria-label="Open filters">
+            <span class="filter-icon">⊟</span>
+            <span>Filters</span>
+            <span class="filter-badge" *ngIf="filterCount > 0">{{ filterCount }}</span>
+        </button>
+
+        <!-- Sort -->
+        <div class="sort-wrap">
+            <label class="sort-label">Sort:</label>
+            <select class="sort-select" [value]="exploreService.filters.sortBy"
+                (change)="setSort($any($event.target).value)">
+                <option *ngFor="let o of sortOptions" [value]="o.value">{{ o.label }}</option>
+            </select>
+        </div>
+
+        <!-- View toggle -->
+        <div class="view-toggle">
+            <button [class.active]="viewMode==='grid'" (click)="toggleView.emit()" title="Grid view">
+                <span>⊞</span>
+            </button>
+            <button [class.active]="viewMode==='map'" (click)="toggleView.emit()" title="Map view">
+                <span>◉</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Active filters bar -->
+    <app-active-filters></app-active-filters>
+
+</div>

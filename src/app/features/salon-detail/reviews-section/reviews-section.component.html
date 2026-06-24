@@ -1,0 +1,67 @@
+<section class="reviews-section">
+
+    <div class="section-label">Reviews</div>
+    <h2 class="section-title">What clients say</h2>
+    <div class="gold-rule"></div>
+
+    <!-- Rating overview -->
+    <div class="rating-overview">
+
+        <div class="rating-hero">
+            <span class="big-rating">{{ salon.rating }}</span>
+            <div class="big-stars">★★★★★</div>
+            <span class="total-reviews">{{ salon.reviews }} reviews</span>
+        </div>
+
+        <div class="rating-bars">
+            <div class="bar-row" *ngFor="let b of ratingBreakdown">
+                <span class="bar-label">{{ b.stars }}★</span>
+                <div class="bar-track">
+                    <div class="bar-fill" [style.width.%]="b.pct"></div>
+                </div>
+                <span class="bar-count">{{ b.count }}</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Filter by rating -->
+    <div class="review-filters">
+        <button class="rf-btn" [class.active]="activeFilter===0" (click)="activeFilter=0; visibleCount=4">All</button>
+        <button class="rf-btn" *ngFor="let s of [5,4,3,2,1]" [class.active]="activeFilter===s"
+            (click)="activeFilter=s; visibleCount=4">
+            {{ s }}★
+        </button>
+    </div>
+
+    <!-- Review cards -->
+    <div class="review-grid">
+        <div class="review-card" *ngFor="let r of filtered">
+
+            <div class="rc-header">
+                <div class="rc-avatar">{{ r.author[0] }}</div>
+                <div class="rc-meta">
+                    <span class="rc-name">{{ r.author }}</span>
+                    <span class="rc-area">{{ r.area }} · {{ r.date }}</span>
+                </div>
+                <div class="rc-stars">{{ stars(r.rating) }}</div>
+            </div>
+
+            <p class="rc-text">"{{ r.text }}"</p>
+
+            <div class="rc-footer">
+                <div class="rc-tags">
+                    <span class="rc-tag">{{ r.service }}</span>
+                    <span class="rc-tag stylist" *ngIf="r.stylist">{{ r.stylist }}</span>
+                </div>
+                <span class="rc-helpful">{{ r.helpful }} found helpful</span>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="load-more" *ngIf="visibleCount < salon.reviewList.length" (click)="visibleCount = visibleCount + 4">
+        Load more reviews
+    </button>
+
+</section>

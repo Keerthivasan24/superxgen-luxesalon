@@ -1,0 +1,89 @@
+<!-- stylists-manager.component.html -->
+<div class="manager-page">
+
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Stylists</h2>
+            <p class="page-sub">Manage your salon team</p>
+        </div>
+        <button class="btn-gold add-btn" (click)="showForm = !showForm">
+            {{ showForm ? 'Cancel' : '+ Add stylist' }}
+        </button>
+    </div>
+
+    <!-- Add form -->
+    <div class="form-card" *ngIf="showForm">
+        <h3 class="form-title">{{ editing ? 'Edit stylist' : 'Add new stylist' }}</h3>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Full name *</label>
+                <input class="field-input" type="text" [(ngModel)]="draft.name" placeholder="Priya Sharma">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Role *</label>
+                <input class="field-input" type="text" [(ngModel)]="draft.role" placeholder="Senior Stylist">
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Years of experience *</label>
+                <input class="field-input" type="number" [(ngModel)]="draft.experience" placeholder="5" min="0">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Specialities (comma separated)</label>
+                <input class="field-input" type="text" [(ngModel)]="specialitiesStr"
+                    placeholder="Balayage, Colour, Bridal">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn-cancel" (click)="cancelForm()">Cancel</button>
+            <button class="btn-gold" (click)="saveStylist()">
+                {{ editing ? 'Save changes' : 'Add stylist' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Stylists grid -->
+    <div class="stylists-grid" *ngIf="ownerData.stylists$ | async as stylists">
+
+        <div class="stylist-card" *ngFor="let s of stylists">
+            <div class="stylist-avatar" [class.unavailable]="!s.available">
+                {{ s.avatar }}
+            </div>
+
+            <div class="stylist-info">
+                <div class="stylist-name-row">
+                    <h3 class="stylist-name">{{ s.name }}</h3>
+                    <span class="avail-dot" [class.on]="s.available"
+                        title="{{ s.available ? 'Available' : 'Unavailable' }}">●</span>
+                </div>
+                <p class="stylist-role">{{ s.role }}</p>
+                <p class="stylist-exp">{{ s.experience }} years experience</p>
+
+                <div class="speciality-chips">
+                    <span class="spec-chip" *ngFor="let sp of s.specialities">{{ sp }}</span>
+                </div>
+            </div>
+
+            <div class="stylist-actions">
+                <button class="icon-btn edit-btn" (click)="editStylist(s)" title="Edit">✎</button>
+                <button class="icon-btn avail-btn" (click)="ownerData.updateStylist(s.id, {available: !s.available})"
+                    [title]="s.available ? 'Mark unavailable' : 'Mark available'">
+                    {{ s.available ? '◑' : '◐' }}
+                </button>
+                <button class="icon-btn del-btn" (click)="deleteStylist(s.id)" title="Remove">✕</button>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="stylists.length === 0">
+            <span class="empty-icon">◉</span>
+            <h3>No stylists yet</h3>
+            <p>Add your team so clients can book with specific stylists</p>
+        </div>
+
+    </div>
+
+</div>

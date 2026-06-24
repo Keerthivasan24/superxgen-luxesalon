@@ -1,0 +1,22 @@
+<div class="detail-page" *ngIf="svc.salon$ | async as salon">
+
+    <app-gallery-hero [salon]="salon"></app-gallery-hero>
+
+
+
+    <div class="detail-body">
+
+        <div class="detail-main">
+            <app-about-section [salon]="salon"></app-about-section>
+            <app-services-menu [salon]="salon"></app-services-menu>
+            <app-stylists-roster [salon]="salon"></app-stylists-roster>
+            <app-slot-picker></app-slot-picker>
+            <app-reviews-section [salon]="salon"></app-reviews-section>
+            <app-location-info [salon]="salon"></app-location-info>
+        </div>
+
+    </div>
+
+    <app-booking-footer [visible]="showBookingFooter"></app-booking-footer>
+
+</div>

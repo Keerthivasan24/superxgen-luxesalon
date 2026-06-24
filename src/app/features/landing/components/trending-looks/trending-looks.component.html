@@ -1,0 +1,22 @@
+<section class="trending-section section-pad">
+    <div class="container-fluid">
+        <div class="section-header">
+            <p class="eyebrow">What's hot in Bangalore</p>
+            <h2>Trending looks</h2>
+            <div class="gold-rule"></div>
+        </div>
+        <div class="filter-row">
+            <button class="filter-btn" *ngFor="let f of filters" [class.active]="f===activeFilter"
+                (click)="activeFilter=f">{{ f }}</button>
+        </div>
+        <div class="looks-grid">
+            <div class="look-card" *ngFor="let l of filtered">
+                <div class="look-image"><span>{{ l.title[0] }}</span></div>
+                <div class="look-info">
+                    <p class="look-title">{{ l.title }}</p>
+                    <p class="look-salon">{{ l.salon }} · {{ l.area }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,32 @@
+<div class="salon-grid-wrap">
+
+    <!-- Results grid -->
+    <div class="salon-grid" [class.list-mode]="viewMode === 'list'" *ngIf="(exploreService.results$ | async) as salons">
+
+        <!-- Skeleton loader -->
+        <ng-container *ngIf="loading">
+            <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]">
+                <div class="sk-image"></div>
+                <div class="sk-body">
+                    <div class="sk-line wide"></div>
+                    <div class="sk-line medium"></div>
+                    <div class="sk-line short"></div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Real cards -->
+        <app-salon-card *ngFor="let salon of salons; trackBy: trackById" [salon]="salon" [layout]="viewMode">
+        </app-salon-card>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="salons.length === 0 && !loading">
+            <div class="empty-icon">✂</div>
+            <h3>No salons found</h3>
+            <p>Try adjusting your filters or search term</p>
+            <button class="btn-outline-gold" (click)="exploreService.clearAll()">Clear filters</button>
+        </div>
+
+    </div>
+
+</div>

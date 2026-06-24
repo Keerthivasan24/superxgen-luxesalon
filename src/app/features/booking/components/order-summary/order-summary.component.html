@@ -1,0 +1,85 @@
+<div class="order-summary">
+
+  <div class="os-header">
+    <span class="os-title">Booking summary</span>
+  </div>
+
+  <!-- Salon -->
+  <div class="os-salon">
+    <div class="os-salon-avatar">{{ payload.salonName?.[0] }}</div>
+    <div class="os-salon-info">
+      <span class="os-salon-name">{{ payload.salonName }}</span>
+      <span class="os-salon-area">Koramangala, Bangalore</span>
+    </div>
+  </div>
+
+  <div class="os-divider"></div>
+
+  <!-- Details -->
+  <div class="os-rows">
+
+    <div class="os-row" *ngIf="payload.serviceName">
+      <span class="os-label">Service</span>
+      <span class="os-val">{{ payload.serviceName }}</span>
+    </div>
+
+    <div class="os-row" *ngIf="payload.serviceDuration">
+      <span class="os-label">Duration</span>
+        <span class="os-val">{{ svc.formatDuration(payload.serviceDuration!) }}</span>
+    </div>
+
+    <div class="os-row">
+      <span class="os-label">Stylist</span>
+      <span class="os-val">
+        {{ payload.stylistName ?? 'Any available' }}
+      </span>
+    </div>
+
+    <div class="os-row" *ngIf="payload.date">
+      <span class="os-label">Date</span>
+      <span class="os-val">{{ payload.date }}</span>
+    </div>
+
+    <div class="os-row" *ngIf="payload.time">
+      <span class="os-label">Time</span>
+      <span class="os-val">{{ payload.time }}</span>
+    </div>
+
+  </div>
+
+  <div class="os-divider"></div>
+
+  <!-- Price breakdown -->
+  <div class="os-rows">
+    <div class="os-row">
+      <span class="os-label">Service price</span>
+      <span class="os-val">₹{{ payload.servicePrice }}</span>
+    </div>
+    <div class="os-row">
+      <span class="os-label">GST (18%)</span>
+      <span class="os-val">₹{{ payload.tax }}</span>
+    </div>
+  </div>
+
+  <div class="os-total">
+    <span class="os-total-label">Total</span>
+    <span class="os-total-val">₹{{ payload.total }}</span>
+  </div>
+
+  <!-- Trust signals -->
+  <div class="os-trust">
+    <div class="trust-item">
+      <span class="ti-icon">◎</span>
+      <span>Free cancellation up to 2h before</span>
+    </div>
+    <div class="trust-item">
+      <span class="ti-icon">◎</span>
+      <span>Instant confirmation</span>
+    </div>
+    <div class="trust-item">
+      <span class="ti-icon">◎</span>
+      <span>Secure & encrypted</span>
+    </div>
+  </div>
+
+</div>

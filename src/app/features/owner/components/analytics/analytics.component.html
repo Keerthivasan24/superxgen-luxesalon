@@ -1,0 +1,96 @@
+<!-- analytics.component.html -->
+<div class="analytics-page">
+
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Analytics</h2>
+            <p class="page-sub">Your salon's performance at a glance</p>
+        </div>
+        <div class="period-tabs">
+            <button class="period-tab" *ngFor="let p of periods" [class.active]="activePeriod === p"
+                (click)="activePeriod = p">
+                {{ p }}
+            </button>
+        </div>
+    </div>
+
+    <!-- KPI row -->
+    <div class="kpi-grid">
+        <div class="kpi-card" *ngFor="let k of kpis">
+            <div class="kpi-icon">{{ k.icon }}</div>
+            <div class="kpi-body">
+                <span class="kpi-val">{{ k.value }}</span>
+                <span class="kpi-lbl">{{ k.label }}</span>
+                <span class="kpi-change" [class.up]="k.up" [class.down]="!k.up">
+                    {{ k.up ? '▲' : '▼' }} {{ k.change }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue chart (CSS bar chart) -->
+    <div class="chart-card">
+        <h3 class="chart-title">Revenue — Last 7 days</h3>
+        <div class="bar-chart">
+            <div class="bar-col" *ngFor="let d of revenueData">
+                <div class="bar-wrap">
+                    <span class="bar-val">₹{{ d.rev / 1000 | number:'1.0-0' }}k</span>
+                    <div class="bar" [style.height.%]="(d.rev / maxRev) * 100"></div>
+                </div>
+                <span class="bar-label">{{ d.day }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two panels -->
+    <div class="analytics-body">
+
+        <!-- Top services -->
+        <div class="panel-card">
+            <h3 class="panel-title">Top services by bookings</h3>
+            <div class="service-bar-list">
+                <div class="sbar-row" *ngFor="let s of topServices">
+                    <span class="sbar-name">{{ s.name }}</span>
+                    <div class="sbar-track">
+                        <div class="sbar-fill" [style.width.%]="(s.count / topServices[0].count) * 100"></div>
+                    </div>
+                    <span class="sbar-count">{{ s.count }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent reviews summary -->
+        <div class="panel-card">
+            <h3 class="panel-title">Rating breakdown</h3>
+            <div class="rating-summary">
+                <div class="big-rating">4.9</div>
+                <div class="rating-bars">
+                    <div class="rbar-row" *ngFor="let r of ratingBars">
+                        <span class="rbar-stars">{{ r.stars }}★</span>
+                        <div class="rbar-track">
+                            <div class="rbar-fill" [style.width.%]="r.pct"></div>
+                        </div>
+                        <span class="rbar-pct">{{ r.pct }}%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-stats">
+                <div class="rstat">
+                    <span class="rstat-val">842</span>
+                    <span class="rstat-lbl">Total reviews</span>
+                </div>
+                <div class="rstat">
+                    <span class="rstat-val">97%</span>
+                    <span class="rstat-lbl">Recommend</span>
+                </div>
+                <div class="rstat">
+                    <span class="rstat-val">4.9</span>
+                    <span class="rstat-lbl">Avg rating</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

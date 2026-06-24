@@ -1,0 +1,45 @@
+<div class="trend-hero">
+    <!-- Particle dots (CSS-only, matches landing page aesthetic) -->
+    <div class="hero-particles">
+        <span class="p" *ngFor="let i of particles" [style.left.%]="i.x" [style.top.%]="i.y"
+            [style.animationDelay]="i.delay"></span>
+    </div>
+
+    <div class="hero-content">
+        <p class="breadcrumb">
+            <a routerLink="/">Home</a> › <span>Trends</span>
+        </p>
+
+        <div class="hero-label">WHAT'S HOT IN BANGALORE</div>
+
+        <h1 class="hero-title">
+            Style <span class="gold-text">Trends</span><br>
+            <span class="light-text">this season</span>
+        </h1>
+
+        <p class="hero-desc">
+            Discover the looks Bangalore's finest salons are perfecting right now —
+            from viral cuts to cult-favourite treatments.
+        </p>
+
+        <div class="hero-stats">
+            <div class="hstat">
+                <span class="hstat-val">{{ trendsService.resultCount$ | async }}</span>
+                <span class="hstat-lbl">Trending now</span>
+            </div>
+            <div class="hstat-divider"></div>
+            <div class="hstat">
+                <span class="hstat-val">12</span>
+                <span class="hstat-lbl">Luxury salons</span>
+            </div>
+            <div class="hstat-divider"></div>
+            <div class="hstat">
+                <span class="hstat-val">Weekly</span>
+                <span class="hstat-lbl">Updated</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative scissors icon (mirrors landing page) -->
+    <div class="hero-deco">✦</div>
+</div>

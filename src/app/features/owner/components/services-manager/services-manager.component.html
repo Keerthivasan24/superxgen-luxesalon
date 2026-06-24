@@ -1,0 +1,105 @@
+<div class="manager-page">
+
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Services</h2>
+            <p class="page-sub">Manage the services your salon offers</p>
+        </div>
+        <button class="btn-gold add-btn" (click)="showForm = true" *ngIf="!showForm">
+            + Add service
+        </button>
+    </div>
+
+    <!-- Add / Edit form -->
+    <div class="form-card" *ngIf="showForm">
+        <h3 class="form-title">{{ editing ? 'Edit service' : 'New service' }}</h3>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Service name *</label>
+                <input class="field-input" type="text" [(ngModel)]="draft.name" placeholder="Full Head Balayage">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Category *</label>
+                <select class="field-input field-select" [(ngModel)]="draft.category">
+                    <option value="" disabled>Select category</option>
+                    <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Duration (minutes) *</label>
+                <input class="field-input" type="number" [(ngModel)]="draft.duration" placeholder="60" min="15">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Price (₹) *</label>
+                <input class="field-input" type="number" [(ngModel)]="draft.price" placeholder="1200">
+            </div>
+        </div>
+
+        <div class="field-wrap">
+            <label class="field-label">Description</label>
+            <input class="field-input" type="text" [(ngModel)]="draft.description"
+                placeholder="Brief description for clients">
+        </div>
+
+        <div class="form-actions">
+            <button class="btn-cancel" (click)="cancelForm()">Cancel</button>
+            <button class="btn-gold" (click)="saveService()">
+                {{ editing ? 'Save changes' : 'Add service' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Services grouped by category -->
+    <ng-container *ngIf="ownerData.services$ | async as services">
+
+        <ng-container *ngFor="let cat of getCategories(services)">
+            <div class="category-section">
+                <div class="category-header">
+                    <span class="cat-name">{{ cat }}</span>
+                    <span class="cat-count">{{ getByCategory(services, cat).length }} services</span>
+                </div>
+
+                <div class="service-table">
+                    <div class="service-row" *ngFor="let svc of getByCategory(services, cat)">
+
+                        <div class="svc-info">
+                            <span class="svc-name">{{ svc.name }}</span>
+                            <span class="svc-desc">{{ svc.description }}</span>
+                        </div>
+
+                        <div class="svc-meta">
+                            <span class="svc-duration">{{ svc.duration }} min</span>
+                            <span class="svc-price">₹{{ svc.price | number }}</span>
+                        </div>
+
+                        <div class="svc-actions">
+                            <!-- Toggle availability -->
+                            <button class="avail-toggle" [class.on]="svc.available"
+                                (click)="ownerData.toggleServiceAvailability(svc.id)"
+                                [title]="svc.available ? 'Mark unavailable' : 'Mark available'">
+                                {{ svc.available ? '● Available' : '◌ Unavailable' }}
+                            </button>
+
+                            <button class="icon-btn edit-btn" (click)="editService(svc)" title="Edit">✎</button>
+                            <button class="icon-btn del-btn" (click)="deleteService(svc.id)" title="Delete">✕</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="empty-state" *ngIf="services.length === 0">
+            <span class="empty-icon">✦</span>
+            <h3>No services yet</h3>
+            <p>Add your first service to attract clients</p>
+            <button class="btn-gold" (click)="showForm = true">Add service</button>
+        </div>
+
+    </ng-container>
+
+</div>

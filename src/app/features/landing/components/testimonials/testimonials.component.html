@@ -1,0 +1,33 @@
+<section class="testimonials-section section-pad">
+    <div class="section-header">
+        <p class="eyebrow">Client stories</p>
+        <h2>Loved by Bangalore</h2>
+        <div class="gold-rule"></div>
+    </div>
+    <div class="marquee-track">
+        <div class="marquee-row">
+            <div class="review-card" *ngFor="let r of row1">
+                <div class="stars">{{ '★'.repeat(r.rating) }}</div>
+                <p class="review-text">"{{ r.text }}"</p>
+                <p class="reviewer">{{ r.name }} · <span>{{ r.area }}</span></p>
+            </div>
+            <div class="review-card" *ngFor="let r of row1">
+                <div class="stars">{{ '★'.repeat(r.rating) }}</div>
+                <p class="review-text">"{{ r.text }}"</p>
+                <p class="reviewer">{{ r.name }} · <span>{{ r.area }}</span></p>
+            </div>
+        </div>
+        <div class="marquee-row reverse">
+            <div class="review-card" *ngFor="let r of row2">
+                <div class="stars">{{ '★'.repeat(r.rating) }}</div>
+                <p class="review-text">"{{ r.text }}"</p>
+                <p class="reviewer">{{ r.name }} · <span>{{ r.area }}</span></p>
+            </div>
+            <div class="review-card" *ngFor="let r of row2">
+                <div class="stars">{{ '★'.repeat(r.rating) }}</div>
+                <p class="review-text">"{{ r.text }}"</p>
+                <p class="reviewer">{{ r.name }} · <span>{{ r.area }}</span></p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,92 @@
+<section class="location-section">
+
+    <div class="section-label">Find Us</div>
+    <h2 class="section-title">Location & Hours</h2>
+    <div class="gold-rule"></div>
+
+    <div class="location-grid">
+
+        <!-- Map placeholder -->
+        <div class="map-box">
+            <svg class="map-svg" viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="260" fill="#0d0d14" />
+                <ellipse cx="200" cy="130" rx="160" ry="110" fill="none" stroke="#1a1a26" stroke-width="12" />
+                <line x1="0" y1="130" x2="400" y2="130" stroke="#161622" stroke-width="7" />
+                <line x1="200" y1="0" x2="200" y2="260" stroke="#161622" stroke-width="7" />
+                <line x1="40" y1="0" x2="360" y2="260" stroke="#141420" stroke-width="4" />
+                <line x1="360" y1="0" x2="40" y2="260" stroke="#141420" stroke-width="4" />
+                <!-- Pin -->
+                <circle cx="200" cy="130" r="14" fill="#C9A84C" opacity=".9" />
+                <circle cx="200" cy="130" r="6" fill="#0a0a0f" />
+                <circle cx="200" cy="130" r="28" fill="none" stroke="#C9A84C" stroke-width="1" opacity=".3" />
+                <circle cx="200" cy="130" r="44" fill="none" stroke="#C9A84C" stroke-width="0.5" opacity=".15" />
+                <text x="214" y="116" fill="#C9A84C" font-size="11" font-family="Inter,sans-serif">{{ salon.name
+                    }}</text>
+                <text x="214" y="129" fill="rgba(201,168,76,.6)" font-size="9" font-family="Inter,sans-serif">{{
+                    salon.area }}</text>
+            </svg>
+            <button class="directions-btn" (click)="openDirections()">
+                Get Directions ↗
+            </button>
+        </div>
+
+        <!-- Info panel -->
+        <div class="info-panel">
+
+            <!-- Address -->
+            <div class="info-block">
+                <span class="info-icon">◎</span>
+                <div>
+                    <p class="info-label">Address</p>
+                    <p class="info-val">{{ salon.address }}</p>
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="info-block">
+                <span class="info-icon">◷</span>
+                <div>
+                    <p class="info-label">Phone</p>
+                    <a class="info-val link" [href]="'tel:' + salon.phone">{{ salon.phone }}</a>
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="info-block">
+                <span class="info-icon">✉</span>
+                <div>
+                    <p class="info-label">Email</p>
+                    <a class="info-val link" [href]="'mailto:' + salon.email">{{ salon.email }}</a>
+                </div>
+            </div>
+
+            <!-- Today's hours highlight -->
+            <div class="today-hours" *ngIf="todayHours">
+                <span class="open-dot" [class.closed]="!salon.openNow"></span>
+                <span class="th-text">
+                    {{ salon.openNow ? 'Open today' : 'Closed today' }} ·
+                    {{ todayHours.open }} – {{ todayHours.close }}
+                </span>
+            </div>
+
+            <!-- Full hours -->
+            <div class="hours-table">
+                <div class="hour-row" *ngFor="let h of salon.hours" [class.today]="h.day === todayDay">
+                    <span class="hour-day">{{ h.day }}</span>
+                    <span class="hour-time" *ngIf="!h.closed">{{ h.open }} – {{ h.close }}</span>
+                    <span class="hour-time closed" *ngIf="h.closed">Closed</span>
+                </div>
+            </div>
+
+            <!-- Amenities pills -->
+            <div class="amenity-pills">
+                <span class="am-pill" *ngIf="salon.parking">Parking ✓</span>
+                <span class="am-pill" *ngIf="salon.wifi">Wi-Fi ✓</span>
+                <span class="am-pill">AC ✓</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,266 @@
+.trend-card {
+  background: var(--surface);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  will-change: transform;
+  transition: transform 0.12s ease-out, border-color 0.25s;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.35);
+  }
+
+  &.featured-card {
+    .trend-visual { height: 220px; }
+    .trend-icon   { font-size: 56px; }
+  }
+}
+
+.trend-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 14px;
+}
+
+/* ── Visual area ── */
+.trend-visual {
+  height: 160px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(10,10,15,0.6) 100%);
+    pointer-events: none;
+  }
+}
+
+.trend-icon {
+  font-size: 40px;
+  color: var(--gold);
+  opacity: 0.35;
+  filter: blur(0.5px);
+  z-index: 0;
+  user-select: none;
+}
+
+/* ── Badges ── */
+.trend-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  z-index: 2;
+
+  &.badge-trending {
+    background: var(--gold);
+    color: #0a0a0f;
+  }
+  &.badge-viral {
+    background: #e74c7c;
+    color: #fff;
+  }
+  &.badge-new {
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    color: #10b981;
+  }
+  &.badge-seasonal {
+    background: rgba(139, 92, 246, 0.18);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #a78bfa;
+  }
+}
+
+/* ── Hot indicator ── */
+.hot-indicator {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text-muted);
+  z-index: 2;
+  letter-spacing: 0.04em;
+}
+
+.hot-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e74c7c;
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── Body ── */
+.trend-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.trend-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.trend-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+.trend-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Tags ── */
+.trend-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.trend-tag {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  color: var(--text-secondary);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Description (featured only) ── */
+.trend-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+/* ── Stats row ── */
+.trend-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(201, 168, 76, 0.07);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-val {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+  white-space: nowrap;
+}
+
+.stat-lbl {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(201, 168, 76, 0.1);
+  flex-shrink: 0;
+}
+
+/* ── Offering salons (featured) ── */
+.offering-salons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.offering-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.salon-avatars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.salon-avatar-chip {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.salon-names-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ── CTA ── */
+.trend-cta {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.explore-btn {
+  width: 100%;
+  font-size: 11px;
+  padding: 10px 18px;
+  letter-spacing: 0.08em;
+}

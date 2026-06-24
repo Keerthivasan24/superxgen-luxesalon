@@ -1,0 +1,38 @@
+<section class="quiz-page">
+    <div class="quiz-inner">
+
+        <!-- Back -->
+        <button class="back-btn" (click)="back()">← Back</button>
+
+        <!-- Progress -->
+        <div class="progress-wrap">
+            <div class="progress-track">
+                <div class="progress-fill" [style.width.%]="progress"></div>
+            </div>
+            <span class="progress-label">
+                {{ currentIdx + 1 }} of {{ questions.length }}
+            </span>
+        </div>
+
+        <!-- Question -->
+        <div class="question-block">
+            <p class="q-eyebrow">Style quiz</p>
+            <h2 class="q-text">{{ current.text }}</h2>
+        </div>
+
+        <!-- Options -->
+        <div class="options-grid">
+            <button class="option-btn" *ngFor="let opt of current.options" [class.selected]="selected === opt"
+                (click)="pick(opt)">
+                <span class="opt-check" *ngIf="selected === opt">✓</span>
+                {{ opt }}
+            </button>
+        </div>
+
+        <!-- CTA -->
+        <button class="btn-gold next-btn" [disabled]="!selected" (click)="next()">
+            {{ isLast ? 'Get my recommendations →' : 'Next →' }}
+        </button>
+
+    </div>
+</section>

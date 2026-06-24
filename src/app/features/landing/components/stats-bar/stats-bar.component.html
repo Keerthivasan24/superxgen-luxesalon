@@ -1,0 +1,11 @@
+<section class="stats-bar">
+    <div class="container-fluid">
+        <div class="stats-inner">
+            <div class="stat-item" *ngFor="let s of displayed; let i = index">
+                <span class="stat-value">{{ s.value }}</span>
+                <span class="stat-label">{{ s.label }}</span>
+                <div class="stat-divider" *ngIf="i < displayed.length - 1"></div>
+            </div>
+        </div>
+    </div>
+</section>

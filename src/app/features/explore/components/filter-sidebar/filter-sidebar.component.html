@@ -1,0 +1,90 @@
+<aside class="filter-sidebar">
+
+    <div class="sidebar-header">
+        <h3>Filters
+            <span class="filter-badge" *ngIf="activeCount > 0">{{ activeCount }}</span>
+        </h3>
+        <button class="clear-all" (click)="exploreService.clearAll()" *ngIf="activeCount > 0">Clear all</button>
+        <button class="close-btn" (click)="close.emit()" aria-label="Close filters">✕</button>
+    </div>
+
+    <!-- OPEN NOW toggle -->
+    <div class="filter-group availability-row">
+        <label class="toggle-label">
+            <span>Open now</span>
+            <button class="toggle-switch" [class.on]="exploreService.filters.openNow"
+                (click)="exploreService.patchFilter({ openNow: !exploreService.filters.openNow })" role="switch"
+                [attr.aria-checked]="exploreService.filters.openNow">
+                <span class="toggle-knob"></span>
+            </button>
+        </label>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- AREA -->
+    <div class="filter-group">
+        <button class="group-header" (click)="toggle('area')" [attr.aria-expanded]="expandedSections['area']">
+            <span>Area</span>
+            <span class="chevron" [class.open]="expandedSections['area']">›</span>
+        </button>
+        <div class="group-body" *ngIf="expandedSections['area']">
+            <button class="filter-chip" *ngFor="let area of areas" [class.active]="isAreaActive(area)"
+                (click)="exploreService.toggleArea(area)">
+                {{ area }}
+            </button>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- SERVICE -->
+    <div class="filter-group">
+        <button class="group-header" (click)="toggle('service')" [attr.aria-expanded]="expandedSections['service']">
+            <span>Service</span>
+            <span class="chevron" [class.open]="expandedSections['service']">›</span>
+        </button>
+        <div class="group-body" *ngIf="expandedSections['service']">
+            <button class="filter-chip" *ngFor="let svc of services" [class.active]="isServiceActive(svc)"
+                (click)="exploreService.toggleService(svc)">
+                {{ svc }}
+            </button>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- PRICE LEVEL -->
+    <div class="filter-group">
+        <button class="group-header" (click)="toggle('price')" [attr.aria-expanded]="expandedSections['price']">
+            <span>Price range</span>
+            <span class="chevron" [class.open]="expandedSections['price']">›</span>
+        </button>
+        <div class="group-body price-row" *ngIf="expandedSections['price']">
+            <button class="price-chip" *ngFor="let p of priceLevels" [class.active]="isPriceActive(p.level)"
+                (click)="exploreService.togglePrice(p.level)">
+                <span class="price-symbol">{{ p.label }}</span>
+                <span class="price-desc">{{ p.desc }}</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <!-- MINIMUM RATING -->
+    <div class="filter-group">
+        <button class="group-header" (click)="toggle('rating')" [attr.aria-expanded]="expandedSections['rating']">
+            <span>Minimum rating</span>
+            <span class="chevron" [class.open]="expandedSections['rating']">›</span>
+        </button>
+        <div class="group-body" *ngIf="expandedSections['rating']">
+            <button class="rating-row-btn" *ngFor="let r of ratings" [class.active]="isRatingActive(r)"
+                (click)="setRating(r)">
+                <span class="stars">{{ '★'.repeat(Math.floor(r)) }}{{ r % 1 !== 0 ? '½' : '' }}</span>
+                <span class="rating-num">{{ r }}+</span>
+                <span class="check" *ngIf="isRatingActive(r)">✓</span>
+            </button>
+        </div>
+    </div>
+
+</aside>

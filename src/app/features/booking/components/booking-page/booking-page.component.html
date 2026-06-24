@@ -1,0 +1,45 @@
+<div class="booking-page">
+
+    <!-- Page header -->
+    <div class="booking-header">
+        <a routerLink="/explore" class="back-link">← Back to salons</a>
+        <div class="header-center">
+            <h1 class="page-title">Book your appointment</h1>
+            <p class="page-sub">Secure · Instant confirmation · Free cancellation</p>
+        </div>
+        <div class="header-right"></div>
+    </div>
+
+    <!-- Step indicator -->
+    <app-step-indicator [currentStep]="(svc.step$ | async) ?? 1">
+    </app-step-indicator>
+
+    <!-- Main layout -->
+    <div class="booking-body" *ngIf="svc.payload$ | async as payload">
+
+        <!-- Left: step content -->
+        <div class="booking-main">
+
+            <ng-container [ngSwitch]="svc.step$ | async">
+
+                <app-step-review *ngSwitchCase="1" [payload]="payload">
+                </app-step-review>
+
+                <app-step-details *ngSwitchCase="2">
+                </app-step-details>
+
+                <app-step-confirm *ngSwitchCase="3" [payload]="payload">
+                </app-step-confirm>
+
+            </ng-container>
+
+        </div>
+
+        <!-- Right: sticky order summary -->
+        <div class="booking-sidebar">
+            <app-order-summary [payload]="payload"></app-order-summary>
+        </div>
+
+    </div>
+
+</div>

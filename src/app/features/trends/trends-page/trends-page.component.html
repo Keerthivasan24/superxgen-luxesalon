@@ -1,0 +1,106 @@
+<div class="trends-page">
+
+    <!-- Hero -->
+    <app-trend-hero></app-trend-hero>
+
+    <!-- Sticky filter bar -->
+    <app-trend-filter-bar></app-trend-filter-bar>
+
+    <!-- Main content -->
+    <div class="trends-body">
+
+        <!-- Featured strip (only when no filters active) -->
+        <ng-container
+            *ngIf="trendsService.filters.category === 'all' && !trendsService.filters.search && !trendsService.filters.showHotOnly">
+
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Featured Trends</h2>
+                        <p class="section-sub">Curated picks from Bangalore's top stylists</p>
+                    </div>
+                </div>
+
+                <div class="featured-grid" *ngIf="trendsService.featured$ | async as featured">
+                    <app-trend-card *ngFor="let trend of featured; trackBy: trackById" [trend]="trend"
+                        [featured]="true">
+                    </app-trend-card>
+                </div>
+            </section>
+
+            <!-- Divider -->
+            <div class="section-divider"></div>
+
+            <!-- Hot this week row -->
+            <section class="section">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">
+                            <span class="hot-pulse"></span>
+                            Hot This Week
+                        </h2>
+                        <p class="section-sub">Booking surges across Bangalore</p>
+                    </div>
+                </div>
+
+                <div class="trends-grid" *ngIf="trendsService.hotThisWeek$ | async as hot">
+                    <app-trend-card *ngFor="let trend of hot; trackBy: trackById" [trend]="trend" [featured]="false">
+                    </app-trend-card>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+        </ng-container>
+
+        <!-- Filtered results -->
+        <section class="section">
+            <div class="section-header"
+                *ngIf="trendsService.filters.category !== 'all' || trendsService.filters.search || trendsService.filters.showHotOnly">
+                <div>
+                    <h2 class="section-title">Results</h2>
+                    <p class="section-sub">{{ trendsService.resultCount$ | async }} trends found</p>
+                </div>
+                <button class="btn-outline-gold clear-btn" (click)="trendsService.clearFilters()">
+                    Clear filters
+                </button>
+            </div>
+
+            <ng-container *ngIf="trendsService.results$ | async as results">
+
+                <!-- Empty state -->
+                <div class="empty-state" *ngIf="results.length === 0">
+                    <div class="empty-icon">✦</div>
+                    <h3>No trends found</h3>
+                    <p>Try a different category or search term</p>
+                    <button class="btn-outline-gold" (click)="trendsService.clearFilters()">Clear filters</button>
+                </div>
+
+                <!-- Grid -->
+                <div class="trends-grid"
+                    *ngIf="results.length > 0 && (trendsService.filters.category !== 'all' || trendsService.filters.search || trendsService.filters.showHotOnly)">
+                    <app-trend-card *ngFor="let trend of results; trackBy: trackById" [trend]="trend"
+                        [featured]="false">
+                    </app-trend-card>
+                </div>
+
+            </ng-container>
+        </section>
+
+        <!-- Bottom CTA banner -->
+        <div class="cta-banner">
+            <div class="cta-inner">
+                <div class="cta-text">
+                    <h3>Ready to try a trend?</h3>
+                    <p>Book at one of Bangalore's finest salons in seconds.</p>
+                </div>
+                <div class="cta-actions">
+                    <a routerLink="/explore" class="btn-gold cta-btn">Explore Salons →</a>
+                    <a routerLink="/style-ai" class="btn-outline-gold cta-btn">Try Style AI</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

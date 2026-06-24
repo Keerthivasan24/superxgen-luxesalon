@@ -1,0 +1,66 @@
+<section class="about-section">
+
+    <div class="section-label">About</div>
+    <h2 class="section-title">{{ salon.name }}</h2>
+    <div class="gold-rule"></div>
+
+    <p class="about-desc" [class.expanded]="expanded">
+        {{ salon.description }}
+    </p>
+    <button class="read-more" (click)="expanded = !expanded">
+        {{ expanded ? 'Show less ↑' : 'Read more ↓' }}
+    </button>
+
+    <!-- Quick stats -->
+    <div class="about-stats">
+        <div class="stat-item">
+            <span class="stat-val">{{ salon.yearsOpen }}+</span>
+            <span class="stat-lbl">Years open</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-val">{{ salon.reviews }}</span>
+            <span class="stat-lbl">Reviews</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-val">{{ salon.rating }}★</span>
+            <span class="stat-lbl">Avg rating</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-val">{{ salon.stylists.length }}</span>
+            <span class="stat-lbl">Expert stylists</span>
+        </div>
+    </div>
+
+    <!-- Specialities -->
+    <div class="tag-group">
+        <span class="tag-label">Specialities</span>
+        <div class="tag-row">
+            <span class="specialty-tag" *ngFor="let s of salon.specialities">{{ s }}</span>
+        </div>
+    </div>
+
+    <!-- Awards -->
+    <div class="awards-row" *ngIf="salon.awards?.length">
+        <div class="award-item" *ngFor="let a of salon.awards">
+            <span class="award-icon">🏆</span>
+            <span class="award-text">{{ a }}</span>
+        </div>
+    </div>
+
+    <!-- Amenities -->
+    <div class="amenities">
+        <span class="amenity" *ngIf="salon.wifi">
+            <span class="am-icon">◎</span> Free Wi-Fi
+        </span>
+        <span class="amenity" *ngIf="salon.parking">
+            <span class="am-icon">◎</span> Parking available
+        </span>
+        <span class="amenity">
+            <span class="am-icon">◎</span> AC salon
+        </span>
+        <span class="amenity">
+            <span class="am-icon">◎</span> Online booking
+        </span>
+    </div>
+
+</section>

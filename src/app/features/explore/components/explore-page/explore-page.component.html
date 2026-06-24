@@ -1,0 +1,43 @@
+<div class="explore-page">
+
+    <!-- Hero breadcrumb bar -->
+    <div class="explore-hero">
+        <div class="hero-content">
+            <p class="breadcrumb"><a routerLink="/">Home</a> › <span>Explore Salons</span></p>
+            <h1>Discover Bangalore's finest salons</h1>
+            <p class="hero-sub">{{ exploreService.resultCount$ | async }} luxury salons across 12 areas</p>
+        </div>
+    </div>
+
+    <!-- Main layout -->
+    <div class="explore-body">
+
+        <!-- Filter sidebar (desktop: always visible, mobile: overlay) -->
+        <app-filter-sidebar [class.mobile-open]="sidebarOpen" (close)="sidebarOpen = false">
+        </app-filter-sidebar>
+
+        <!-- Mobile sidebar overlay backdrop -->
+        <div class="sidebar-backdrop" *ngIf="sidebarOpen" (click)="sidebarOpen = false">
+        </div>
+
+        <!-- Right panel -->
+        <div class="explore-right">
+
+            <!-- Sticky search + sort bar -->
+            <app-search-header [viewMode]="viewMode === 'map' ? 'map' : 'grid'" [filterCount]="filterCount"
+                (toggleFilters)="sidebarOpen = !sidebarOpen" (toggleView)="toggleView()">
+            </app-search-header>
+
+            <!-- Map toggle tab -->
+
+            <!-- Content area: Grid / List / Map -->
+            <div class="content-area">
+                <app-map-view *ngIf="viewMode === 'map'"></app-map-view>
+                <app-salon-grid *ngIf="viewMode !== 'map'" [viewMode]="viewMode"></app-salon-grid>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

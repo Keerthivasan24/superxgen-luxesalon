@@ -1,0 +1,117 @@
+.prefs-tab { display: flex; flex-direction: column; gap: 24px; }
+
+.tab-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tab-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+
+.tab-sub { font-size: 12px; color: var(--text-muted); }
+
+.save-prefs-btn {
+  padding: 10px 20px;
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  &.saved { background: #10b981; }
+}
+
+/* Prefs grid */
+.prefs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pref-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,.18);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all .15s;
+
+  &:hover   { border-color: rgba(201,168,76,.4); color: var(--cream); }
+  &.selected {
+    background: rgba(201,168,76,.1);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+}
+
+.chip-check { font-size: 10px; font-weight: 600; }
+
+/* Notifications */
+.notif-section {
+  background: var(--surface);
+  border: 1px solid rgba(201,168,76,.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.notif-title {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid rgba(201,168,76,.06);
+}
+
+.notif-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(201,168,76,.04);
+  &:last-child { border-bottom: none; }
+}
+
+.notif-info { display: flex; flex-direction: column; gap: 3px; }
+.notif-label { font-size: 13px; color: var(--cream); }
+.notif-desc  { font-size: 11px; color: var(--text-muted); }
+
+/* Toggle */
+.toggle-wrap {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(201,168,76,.15);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .2s;
+
+  &.on {
+    background: var(--gold);
+    border-color: var(--gold);
+    .toggle-knob { transform: translateX(18px); background: #0a0a0f; }
+  }
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform .2s, background .2s;
+}

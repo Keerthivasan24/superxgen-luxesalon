@@ -1,0 +1,60 @@
+<section class="ai-hero">
+
+    <!-- Animated orb rings -->
+    <div class="orb-wrap" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb-core"></div>
+        <div class="orb-particles">
+            <span *ngFor="let p of [1,2,3,4,5,6,7,8]" class="particle" [style.animation-delay]="(p * 0.4) + 's'">
+            </span>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+        <h1 class="hero-title">
+            Discover your<br>
+            <span class="gold-text">perfect style</span>
+        </h1>
+        <div class="gold-rule"></div>
+        <p class="hero-desc">
+            Upload your photo or take our style quiz — our AI analyses your
+            face shape, hair texture, and personal vibe to curate the perfect
+            looks from Bangalore's finest salons.
+        </p>
+
+        <!-- CTA cards -->
+        <div class="cta-cards">
+
+            <button class="cta-card primary" (click)="svc.goTo('upload')">
+                <div class="cta-icon">⬆</div>
+                <div class="cta-info">
+                    <span class="cta-title">Upload your photo</span>
+                    <span class="cta-desc">AI analyses your face shape instantly</span>
+                </div>
+                <span class="cta-arrow">→</span>
+            </button>
+
+            <button class="cta-card secondary" (click)="svc.goTo('quiz')">
+                <div class="cta-icon">✦</div>
+                <div class="cta-info">
+                    <span class="cta-title">Take the style quiz</span>
+                    <span class="cta-desc">5 quick questions, no photo needed</span>
+                </div>
+                <span class="cta-arrow">→</span>
+            </button>
+
+        </div>
+
+        <!-- Trust line -->
+        <p class="trust-line">
+            <span>✓ Free</span>
+            <span>✓ Instant results</span>
+            <span>✓ Privacy protected</span>
+        </p>
+
+    </div>
+
+</section>

@@ -1,0 +1,30 @@
+<section class="loading-page">
+    <div class="loading-inner">
+
+        <!-- Gold pulse ring -->
+        <div class="pulse-ring" aria-hidden="true">
+            <div class="pulse-core">
+                <span class="pulse-icon">✦</span>
+            </div>
+            <div class="pulse-wave w1"></div>
+            <div class="pulse-wave w2"></div>
+            <div class="pulse-wave w3"></div>
+        </div>
+
+        <h2 class="loading-title">Analysing your style…</h2>
+        <p class="loading-sub">Our AI is crafting personalised recommendations</p>
+
+        <!-- Steps -->
+        <div class="steps-list" *ngIf="svc.steps$ | async as steps">
+            <div class="step-row" *ngFor="let step of steps" [class.done]="step.done" [class.active]="step.active">
+                <span class="step-icon">
+                    <span *ngIf="step.done">✓</span>
+                    <span *ngIf="step.active" class="spinner">◌</span>
+                    <span *ngIf="!step.done && !step.active">·</span>
+                </span>
+                <span class="step-label">{{ step.label }}</span>
+            </div>
+        </div>
+
+    </div>
+</section>

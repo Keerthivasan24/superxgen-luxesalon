@@ -1,0 +1,58 @@
+<div class="profile-page">
+
+    <!-- Profile header -->
+    <app-profile-header></app-profile-header>
+
+    <div class="profile-body" *ngIf="svc.user$ | async as user">
+
+        <!-- Left column -->
+        <div class="profile-left">
+            <app-loyalty-card></app-loyalty-card>
+
+            <!-- Quick stats -->
+            <div class="quick-stats">
+                <div class="qs-item">
+                    <span class="qs-val">{{ user.totalBookings }}</span>
+                    <span class="qs-lbl">Bookings</span>
+                </div>
+                <div class="qs-divider"></div>
+                <div class="qs-item">
+                    <span class="qs-val">₹{{ user.totalSpent | number }}</span>
+                    <span class="qs-lbl">Total spent</span>
+                </div>
+                <div class="qs-divider"></div>
+                <div class="qs-item">
+                    <span class="qs-val">{{ user.loyaltyPoints }}</span>
+                    <span class="qs-lbl">Points</span>
+                </div>
+            </div>
+
+            <!-- Nav links -->
+            <nav class="profile-nav">
+                <button class="pnav-btn" [class.active]="(svc.activeTab$ | async) === 'bookings'"
+                    (click)="setTab('bookings')">
+                    <span class="pnav-icon">◷</span> My Bookings
+                </button>
+                <button class="pnav-btn" [class.active]="(svc.activeTab$ | async) === 'saved'"
+                    (click)="setTab('saved')">
+                    <span class="pnav-icon">♥</span> Saved Salons
+                </button>
+                <button class="pnav-btn" [class.active]="(svc.activeTab$ | async) === 'preferences'"
+                    (click)="setTab('preferences')">
+                    <span class="pnav-icon">✦</span> Style Preferences
+                </button>
+            </nav>
+        </div>
+
+        <!-- Right column: tab content -->
+        <div class="profile-right">
+            <ng-container [ngSwitch]="svc.activeTab$ | async">
+                <app-bookings-tab *ngSwitchCase="'bookings'"></app-bookings-tab>
+                <app-saved-salons-tab *ngSwitchCase="'saved'"></app-saved-salons-tab>
+                <app-preferences-tab *ngSwitchCase="'preferences'"></app-preferences-tab>
+            </ng-container>
+        </div>
+
+    </div>
+
+</div>

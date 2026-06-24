@@ -1,0 +1,98 @@
+<div class="bookings-tab">
+
+    <div class="tab-header">
+        <h2 class="tab-title">My Bookings</h2>
+        <!-- Filter row -->
+        <div class="filter-row">
+            <button class="filter-btn" *ngFor="let f of filters" [class.active]="svc.bookingFilter === f.value"
+                (click)="svc.setBookingFilter(f.value)">
+                {{ f.label }}
+            </button>
+        </div>
+    </div>
+
+    <!-- Booking cards -->
+    <div class="bookings-list">
+
+        <div class="booking-card" *ngFor="let b of svc.filteredBookings" [class.upcoming]="b.status === 'upcoming'"
+            [class.cancelled]="b.status === 'cancelled'">
+
+            <!-- Card header -->
+            <div class="bc-header">
+                <div class="bc-id">#{{ b.id }}</div>
+                <span class="status-pill" [class.pill-upcoming]="b.status === 'upcoming'"
+                    [class.pill-completed]="b.status === 'completed'" [class.pill-cancelled]="b.status === 'cancelled'">
+                    {{ b.status | titlecase }}
+                </span>
+            </div>
+
+            <!-- Card body -->
+            <div class="bc-body">
+
+                <div class="bc-salon">
+                    <div class="bc-avatar">{{ b.salonName[0] }}</div>
+                    <div class="bc-info">
+                        <span class="bc-salon-name">{{ b.salonName }}</span>
+                        <span class="bc-area">◎ {{ b.salonArea }}</span>
+                    </div>
+                </div>
+
+                <div class="bc-details">
+                    <div class="bc-detail-row">
+                        <span class="bc-detail-label">Service</span>
+                        <span class="bc-detail-val">{{ b.serviceName }}</span>
+                    </div>
+                    <div class="bc-detail-row" *ngIf="b.stylistName">
+                        <span class="bc-detail-label">Stylist</span>
+                        <span class="bc-detail-val">{{ b.stylistName }}</span>
+                    </div>
+                    <div class="bc-detail-row">
+                        <span class="bc-detail-label">Date & Time</span>
+                        <span class="bc-detail-val">{{ b.date }} at {{ b.time }}</span>
+                    </div>
+                    <div class="bc-detail-row">
+                        <span class="bc-detail-label">Total paid</span>
+                        <span class="bc-detail-val gold">₹{{ b.total | number }}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Rating row (completed only) -->
+            <div class="bc-rating" *ngIf="b.status === 'completed'">
+                <span class="rating-label">Your rating:</span>
+                <div class="star-row">
+                    <button class="star-btn" *ngFor="let s of starArray(5)" [class.filled]="(b.rating ?? 0) >= s"
+                        (click)="svc.rateBooking(b.id, s)">
+                        ★
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card footer -->
+            <div class="bc-footer">
+                <span class="bc-cancel-note" *ngIf="b.status === 'upcoming'">
+                    Free cancellation available
+                </span>
+                <span class="bc-cancel-note muted" *ngIf="b.status === 'cancelled'">
+                    This booking was cancelled
+                </span>
+                <div class="bc-actions">
+                    <button class="rebook-btn" *ngIf="b.canRebook" (click)="rebook(1)">
+                        Rebook →
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="svc.filteredBookings.length === 0">
+            <span class="empty-icon">◷</span>
+            <p>No {{ svc.bookingFilter === 'all' ? '' : svc.bookingFilter }} bookings found</p>
+            <a routerLink="/explore" class="btn-outline-gold">Find a salon →</a>
+        </div>
+
+    </div>
+
+</div>

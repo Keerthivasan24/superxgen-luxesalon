@@ -1,0 +1,125 @@
+<div class="step-confirm">
+
+    <!-- ── Success state ── -->
+    <ng-container *ngIf="confirmed && (svc.confirm$ | async) as booking">
+        <div class="success-state">
+
+            <div class="success-ring">
+                <div class="success-icon">✓</div>
+            </div>
+
+            <h2 class="success-title">Booking confirmed!</h2>
+            <p class="success-sub">Your appointment has been booked successfully</p>
+
+            <div class="booking-id-pill">
+                Booking ID: <strong>{{ booking.bookingId }}</strong>
+            </div>
+
+            <div class="confirm-summary">
+                <div class="cs-row">
+                    <span class="cs-label">Salon</span>
+                    <span class="cs-val">{{ booking.salonName }}</span>
+                </div>
+                <div class="cs-row">
+                    <span class="cs-label">Service</span>
+                    <span class="cs-val">{{ booking.serviceName }}</span>
+                </div>
+                <div class="cs-row" *ngIf="booking.stylist">
+                    <span class="cs-label">Stylist</span>
+                    <span class="cs-val">{{ booking.stylist }}</span>
+                </div>
+                <div class="cs-row">
+                    <span class="cs-label">Date & Time</span>
+                    <span class="cs-val">{{ booking.date }} at {{ booking.time }}</span>
+                </div>
+                <div class="cs-row total-row">
+                    <span class="cs-label">Total</span>
+                    <span class="cs-val gold">₹{{ booking.total | number }}</span>
+                </div>
+            </div>
+
+            <p class="success-note">
+                A confirmation has been sent to your email and phone.
+                We look forward to seeing you!
+            </p>
+
+            <div class="success-actions">
+                <button class="btn-gold" (click)="goExplore()">Explore more salons</button>
+                <button class="btn-outline-gold" (click)="goHome()">Back to home</button>
+            </div>
+
+        </div>
+    </ng-container>
+
+    <!-- ── Pre-submit state ── -->
+    <ng-container *ngIf="!confirmed">
+
+        <div class="step-heading">
+            <h2>Confirm your booking</h2>
+            <p>Review everything one last time</p>
+        </div>
+
+        <!-- Full summary -->
+        <div class="final-summary">
+
+            <div class="fs-row">
+                <span class="fs-label">Salon</span>
+                <span class="fs-val">{{ payload.salonName }}</span>
+            </div>
+            <div class="fs-row">
+                <span class="fs-label">Service</span>
+                <span class="fs-val">{{ payload.serviceName }}</span>
+            </div>
+            <div class="fs-row" *ngIf="payload.stylistName">
+                <span class="fs-label">Stylist</span>
+                <span class="fs-val">{{ payload.stylistName }}</span>
+            </div>
+            <div class="fs-row">
+                <span class="fs-label">Date & Time</span>
+                <span class="fs-val">{{ payload.date }} at {{ payload.time }}</span>
+            </div>
+
+            <div class="fs-divider"></div>
+
+            <div class="fs-row">
+                <span class="fs-label">Service price</span>
+                <span class="fs-val">₹{{ payload.servicePrice | number }}</span>
+            </div>
+            <div class="fs-row">
+                <span class="fs-label">GST (18%)</span>
+                <span class="fs-val">₹{{ payload.tax | number }}</span>
+            </div>
+            <div class="fs-row total-row">
+                <span class="fs-label total-label">Total payable</span>
+                <span class="fs-val total-val">₹{{ payload.total | number }}</span>
+            </div>
+
+        </div>
+
+        <!-- Payment note -->
+        <div class="pay-note">
+            <span class="pay-icon">◎</span>
+            <span>
+                {{ svc.detailsForm.get('payAtSalon')?.value
+                ? 'Pay at salon — cash, card, or UPI'
+                : 'Online payment will be collected securely'
+                }}
+            </span>
+        </div>
+
+        <!-- CTA row -->
+        <div class="step-cta">
+            <button class="back-btn" (click)="svc.back()">← Back</button>
+            <button class="btn-gold cta-btn" (click)="confirm()" [disabled]="(svc.submitting$ | async)">
+                <ng-container *ngIf="!(svc.submitting$ | async)">
+                    Confirm Booking →
+                </ng-container>
+                <ng-container *ngIf="svc.submitting$ | async">
+                    Booking… ◌
+                </ng-container>
+            </button>
+        </div>
+
+    </ng-container>
+
+</div>

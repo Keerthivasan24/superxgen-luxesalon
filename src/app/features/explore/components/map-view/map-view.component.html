@@ -1,0 +1,84 @@
+<div class="map-view-wrap">
+
+    <div class="map-container">
+
+        <!-- Stylized map background -->
+        <svg class="map-bg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice">
+            <!-- Road grid - main arteries -->
+            <rect width="800" height="600" fill="#0d0d14" />
+            <!-- Outer Ring Road - roughly oval -->
+            <ellipse cx="400" cy="300" rx="300" ry="220" fill="none" stroke="#1e1e2a" stroke-width="18" />
+            <!-- Major roads -->
+            <line x1="0" y1="300" x2="800" y2="300" stroke="#1a1a26" stroke-width="10" />
+            <line x1="400" y1="0" x2="400" y2="600" stroke="#1a1a26" stroke-width="10" />
+            <line x1="100" y1="0" x2="700" y2="600" stroke="#161622" stroke-width="6" />
+            <line x1="700" y1="0" x2="100" y2="600" stroke="#161622" stroke-width="6" />
+            <!-- Secondary roads -->
+            <line x1="0" y1="150" x2="800" y2="150" stroke="#141420" stroke-width="4" />
+            <line x1="0" y1="450" x2="800" y2="450" stroke="#141420" stroke-width="4" />
+            <line x1="200" y1="0" x2="200" y2="600" stroke="#141420" stroke-width="4" />
+            <line x1="600" y1="0" x2="600" y2="600" stroke="#141420" stroke-width="4" />
+            <!-- Gold ring accent -->
+            <ellipse cx="400" cy="300" rx="300" ry="220" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1" />
+            <!-- Area labels -->
+            <text x="440" y="140" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">HEBBAL</text>
+            <text x="280" y="195" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">MALLESHWARAM</text>
+            <text x="500" y="230" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">INDIRANAGAR</text>
+            <text x="340" y="275" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">MG ROAD</text>
+            <text x="180" y="330" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">JAYANAGAR</text>
+            <text x="440" y="350" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">KORAMANGALA</text>
+            <text x="480" y="430" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">HSR LAYOUT</text>
+            <text x="560" y="270" fill="rgba(201,168,76,.25)" font-size="11" font-family="Inter,sans-serif"
+                letter-spacing="2">WHITEFIELD</text>
+        </svg>
+
+        <!-- Salon pins positioned over map -->
+        <div class="pins-layer" *ngIf="(exploreService.results$ | async) as salons">
+            <button class="map-pin" *ngFor="let salon of salons" [class.selected]="selectedSalon?.id === salon.id"
+                [class.featured]="salon.isFeatured" [style.left.%]="getPinX(salon)" [style.top.%]="getPinY(salon)"
+                (click)="select(salon)" [attr.aria-label]="salon.name">
+                <span class="pin-label">{{ salon.rating }}★</span>
+            </button>
+        </div>
+
+        <!-- Map controls -->
+        <div class="map-controls">
+            <button class="map-ctrl" aria-label="Zoom in">+</button>
+            <button class="map-ctrl" aria-label="Zoom out">−</button>
+            <button class="map-ctrl locate-btn" aria-label="My location">◎</button>
+        </div>
+
+        <!-- Selected salon card -->
+        <div class="map-salon-card" *ngIf="selectedSalon" (click)="go()">
+            <button class="card-close" (click)="selectedSalon = null; $event.stopPropagation()">✕</button>
+            <div class="msc-image" [style.background]="'#1a1206'">
+                <span>{{ selectedSalon.name[0] }}</span>
+            </div>
+            <div class="msc-info">
+                <div class="msc-badge" *ngIf="selectedSalon.badge">{{ selectedSalon.badge }}</div>
+                <h4>{{ selectedSalon.name }}</h4>
+                <p class="msc-area">◎ {{ selectedSalon.area }}</p>
+                <div class="msc-row">
+                    <span class="msc-rating">★ {{ selectedSalon.rating }} ({{ selectedSalon.reviews }})</span>
+                    <span class="msc-price">{{ priceStr }}</span>
+                </div>
+                <div class="msc-slot" *ngIf="selectedSalon.nextSlot">
+                    ◷ {{ selectedSalon.nextSlot }}
+                </div>
+                <div class="msc-actions">
+                    <button class="btn-gold msc-btn" (click)="go()">View salon →</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+// register-salon.component.scss — page shell only
+.wizard-page {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.wizard-header {
+  h1 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  p { font-size: 13px; color: var(--text-muted); }
+}
+
+.wizard-steps {
+  display: flex;
+  align-items: center;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+
+  &.active .step-bubble { background: var(--gold); color: #0a0a0f; border-color: var(--gold); }
+  &.done   .step-bubble { background: rgba(201,168,76,.15); color: var(--gold); border-color: var(--gold); }
+}
+
+.step-bubble {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,.2);
+  background: rgba(255,255,255,.03);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+
+.step-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: .04em;
+  white-space: nowrap;
+  .active & { color: var(--gold); }
+  .done   & { color: var(--text-secondary); }
+}
+
+.step-connector {
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,.12);
+  margin: 0 8px;
+  .done + .step-item & { background: rgba(201,168,76,.4); }
+}
+
+@media (max-width: 600px) {
+  .step-label { display: none; }
+}

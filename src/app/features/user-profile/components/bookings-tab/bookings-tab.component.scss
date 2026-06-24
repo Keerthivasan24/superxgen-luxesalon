@@ -1,0 +1,162 @@
+.bookings-tab { display: flex; flex-direction: column; gap: 16px; }
+
+.tab-header { display: flex; flex-direction: column; gap: 14px; }
+
+.tab-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--cream);
+}
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,.15);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all .15s;
+  &:hover, &.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,.06);
+  }
+}
+
+/* Booking card */
+.booking-card {
+  background: var(--surface);
+  border: 1px solid rgba(201,168,76,.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color .2s;
+  &:hover    { border-color: rgba(201,168,76,.25); }
+  &.upcoming { border-left: 3px solid var(--gold); }
+  &.cancelled{ opacity: .7; }
+}
+
+.bc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(201,168,76,.06);
+}
+
+.bc-id { font-size: 11px; color: var(--text-muted); letter-spacing: .06em; }
+
+.status-pill {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+
+  &.pill-upcoming  { background: rgba(201,168,76,.12); color: var(--gold);   border: 1px solid rgba(201,168,76,.3); }
+  &.pill-completed { background: rgba(16,185,129,.1);  color: #10b981;        border: 1px solid rgba(16,185,129,.25); }
+  &.pill-cancelled { background: rgba(239,68,68,.08);  color: #f87171;        border: 1px solid rgba(239,68,68,.2); }
+}
+
+.bc-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+.bc-salon { display: flex; align-items: center; gap: 12px; }
+
+.bc-avatar {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  background: rgba(201,168,76,.1);
+  border: 1px solid rgba(201,168,76,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.bc-info { display: flex; flex-direction: column; gap: 2px; }
+.bc-salon-name { font-size: 15px; color: var(--cream); }
+.bc-area       { font-size: 11px; color: var(--text-muted); }
+
+.bc-details { display: flex; flex-direction: column; gap: 6px; }
+
+.bc-detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.bc-detail-label { color: var(--text-muted); }
+.bc-detail-val   { color: var(--text-secondary); &.gold { color: var(--gold); } }
+
+/* Rating */
+.bc-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(201,168,76,.06);
+  background: rgba(201,168,76,.02);
+}
+
+.rating-label { font-size: 11px; color: var(--text-muted); }
+
+.star-row { display: flex; gap: 2px; }
+
+.star-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: rgba(201,168,76,.2);
+  cursor: pointer;
+  padding: 0 1px;
+  transition: color .1s;
+  &:hover, &.filled { color: var(--gold); }
+}
+
+/* Footer */
+.bc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(201,168,76,.06);
+}
+
+.bc-cancel-note {
+  font-size: 11px;
+  color: #10b981;
+  &.muted { color: var(--text-muted); }
+}
+
+.bc-actions { display: flex; gap: 8px; }
+
+.rebook-btn {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,.25);
+  color: var(--gold);
+  font-size: 11px;
+  padding: 5px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  letter-spacing: .04em;
+  transition: all .15s;
+  &:hover { background: rgba(201,168,76,.08); }
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  .empty-icon { font-size: 40px; color: rgba(201,168,76,.2); }
+  p { font-size: 13px; color: var(--text-muted); }
+}

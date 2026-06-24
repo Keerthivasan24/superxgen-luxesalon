@@ -1,0 +1,116 @@
+<div class="results-page">
+
+    <!-- Header -->
+    <div class="results-hero">
+        <button class="back-btn" (click)="svc.reset()">← Start over</button>
+        <div class="results-hero-inner">
+            <p class="eyebrow">Your personalised style report</p>
+            <h1>{{ result.faceShape }} face · {{ result.hairType }} hair</h1>
+            <div class="gold-rule"></div>
+            <p class="personality-note">{{ result.personalityNote }}</p>
+        </div>
+    </div>
+
+    <div class="results-body">
+
+        <!-- Top tip -->
+        <div class="tip-banner">
+            <span class="tip-icon">✦</span>
+            <div>
+                <span class="tip-label">AI tip</span>
+                <p class="tip-text">{{ result.topTip }}</p>
+            </div>
+        </div>
+
+        <!-- Colour palettes -->
+        <div class="section">
+            <h2 class="section-title">Recommended colour palettes</h2>
+            <div class="palette-row">
+                <div class="palette-swatch" *ngFor="let c of result.colourPalettes">
+                    <div class="swatch-circle" [style.background]="c.hex"></div>
+                    <span class="swatch-name">{{ c.name }}</span>
+                    <span class="swatch-label">{{ c.label }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Style recommendations -->
+        <div class="section">
+            <h2 class="section-title">Your top style picks</h2>
+            <div class="recs-grid">
+                <div class="rec-card" *ngFor="let r of result.recommendations; let i = index">
+
+                    <!-- Rank badge -->
+                    <div class="rec-rank" [class.top]="i === 0">
+                        {{ i === 0 ? '✦ Best match' : '#' + (i + 1) }}
+                    </div>
+
+                    <!-- Visual placeholder -->
+                    <div class="rec-visual">
+                        <span class="rec-letter">{{ r.name[0] }}</span>
+                    </div>
+
+                    <div class="rec-body">
+                        <h3 class="rec-name">{{ r.name }}</h3>
+                        <p class="rec-desc">{{ r.description }}</p>
+
+                        <div class="rec-meta">
+                            <span class="meta-item">
+                                <span class="meta-icon">◷</span> {{ r.duration }}
+                            </span>
+                            <span class="meta-item">
+                                <span class="meta-icon">₹</span> {{ r.priceRange }}
+                            </span>
+                        </div>
+
+                        <div class="rec-suited">{{ r.suitedFor }}</div>
+
+                        <div class="rec-tags">
+                            <span class="rec-tag" *ngFor="let t of r.tags">{{ t }}</span>
+                        </div>
+
+                        <!-- Matched salon -->
+                        <div class="matched-salon">
+                            <span class="ms-label">Best at</span>
+                            <span class="ms-name">{{ r.matchedSalon }}</span>
+                            <span class="ms-area">· {{ r.salonArea }}</span>
+                        </div>
+
+                        <button class="btn-gold book-rec-btn" (click)="bookSalon(r.salonId, r.name)">
+                            Book at {{ r.matchedSalon }} →
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis breakdown -->
+        <div class="section analysis-grid">
+            <div class="analysis-item">
+                <span class="ai-label">Face shape</span>
+                <span class="ai-val">{{ result.faceShape }}</span>
+            </div>
+            <div class="analysis-item">
+                <span class="ai-label">Hair type</span>
+                <span class="ai-val">{{ result.hairType }}</span>
+            </div>
+            <div class="analysis-item">
+                <span class="ai-label">Skin tone</span>
+                <span class="ai-val">{{ result.skinTone }}</span>
+            </div>
+        </div>
+
+        <!-- Retry -->
+        <div class="retry-row">
+            <button class="btn-outline-gold" (click)="svc.reset()">
+                Try again with a different photo
+            </button>
+            <a routerLink="/explore" class="btn-gold">
+                Explore all salons →
+            </a>
+        </div>
+
+    </div>
+
+</div>

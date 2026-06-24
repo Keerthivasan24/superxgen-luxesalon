@@ -1,0 +1,174 @@
+<nav class="navbar" [class.scrolled]="scrolled">
+    <div class="nav-inner">
+
+        <!-- Brand -->
+        <button class="brand" type="button" (click)="router.navigateByUrl('/')">
+            <span class="brand-luxe">LUXE</span>
+            <span class="brand-salon">SALON</span>
+            <span class="brand-city">Bangalore</span>
+        </button>
+
+        <!-- Nav links -->
+        <ul class="nav-links" [class.open]="menuOpen">
+            <li>
+                <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                    (click)="menuOpen=false">Home</a>
+            </li>
+            <li>
+                <a routerLink="/explore" routerLinkActive="active" (click)="menuOpen=false">Explore</a>
+            </li>
+            <li>
+                <a routerLink="/trends" routerLinkActive="active" (click)="menuOpen=false">Trends</a>
+            </li>
+            <li>
+                <a routerLink="/style-ai" routerLinkActive="active" (click)="menuOpen=false">Style AI</a>
+            </li>
+        </ul>
+
+        <!-- Right actions -->
+        <div class="nav-actions">
+
+            <a routerLink="/explore" class="btn-outline-gold nav-btn hide-mobile">
+                Find Salon
+            </a>
+
+            <button type="button" class="btn-gold nav-btn hide-mobile" (click)="onBookNow()">
+                Book Now
+            </button>
+
+            <!-- Profile wrapper — .profile-wrapper used by document:click check -->
+            <div class="profile-wrapper">
+
+                <!-- Avatar button -->
+                <button type="button" class="profile-icon-btn" (click)="onProfileClick()" aria-label="Account">
+
+                    <!-- Logged in -->
+                    <div class="profile-avatar" [class.profile-active]="showUserMenu" *ngIf="auth.isLoggedIn">
+                        {{ auth.user?.avatar || 'U' }}
+                    </div>
+
+                    <!-- Guest -->
+                    <div class="profile-avatar profile-guest" *ngIf="!auth.isLoggedIn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                        </svg>
+                    </div>
+
+                    <!-- Online dot -->
+                    <span class="profile-dot" *ngIf="auth.isLoggedIn"></span>
+
+                </button>
+
+                <!-- Dropdown — NO overlay needed, document:click handles outside close -->
+                <div class="user-menu" *ngIf="showUserMenu && auth.isLoggedIn" (click)="$event.stopPropagation()">
+
+                    <!-- Header -->
+                    <div class="user-menu-header">
+                        <div class="um-avatar">{{ auth.user?.avatar || 'U' }}</div>
+                        <div class="um-info">
+                            <p class="um-name">{{ auth.user?.name }}</p>
+                            <p class="um-email">{{ auth.user?.email }}</p>
+                        </div>
+                    </div>
+
+                    <div class="um-divider"></div>
+
+                    <!-- Customer links -->
+                    <ng-container *ngIf="!auth.isOwner">
+                        <button class="um-item" type="button"
+                            (click)="router.navigateByUrl('/profile'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <circle cx="12" cy="8" r="4" />
+                                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                            </svg>
+                            My profile
+                        </button>
+
+                        <button class="um-item" type="button" (click)="router.navigateByUrl('/book'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            My bookings
+                        </button>
+
+                        <button class="um-item" type="button"
+                            (click)="router.navigateByUrl('/explore'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                            Saved salons
+                        </button>
+                    </ng-container>
+
+                    <!-- Owner links -->
+                    <ng-container *ngIf="auth.isOwner">
+                        <button class="um-item" type="button"
+                            (click)="router.navigateByUrl('/owner/dashboard'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
+                            </svg>
+                            Dashboard
+                        </button>
+
+                        <button class="um-item" type="button"
+                            (click)="router.navigateByUrl('/owner/bookings'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            Bookings
+                        </button>
+
+                        <button class="um-item" type="button"
+                            (click)="router.navigateByUrl('/owner/profile'); closeUserMenu()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                            Salon profile
+                        </button>
+                    </ng-container>
+
+                    <div class="um-divider"></div>
+
+                    <button class="um-item um-logout" type="button" (click)="logout()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" y1="12" x2="9" y2="12" />
+                        </svg>
+                        Sign out
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Hamburger -->
+            <button class="hamburger" type="button" [class.is-open]="menuOpen" (click)="toggleMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </div>
+</nav>

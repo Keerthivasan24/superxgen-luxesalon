@@ -1,0 +1,46 @@
+<section class="featured-section section-pad">
+    <div class="container-fluid">
+
+        <div class="section-header">
+            <p class="eyebrow">Handpicked for you</p>
+            <h2>Featured luxury salons</h2>
+            <div class="gold-rule"></div>
+        </div>
+
+        <div class="salons-grid">
+            <div class="salon-card" *ngFor="let salon of salons" #cardEl (mousemove)="onMouseMove($event, cardEl)"
+                (mouseleave)="onMouseLeave(cardEl)" [routerLink]="['/salon', salon.id]">
+
+                <div class="card-shine"></div>
+
+                <div class="card-image">
+                    <div class="image-placeholder">
+                        <span>{{ salon.name[0] }}</span>
+                    </div>
+                    <div class="card-badge" *ngIf="salon.badge">{{ salon.badge }}</div>
+                    <div class="price-level">{{ salon.priceLevel }}</div>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="salon-name">{{ salon.name }}</h3>
+                    <p class="salon-area">◎ {{ salon.area }}</p>
+                    <div class="salon-rating">
+                        <span class="rating-star">★</span>
+                        <span class="rating-val">{{ salon.rating }}</span>
+                        <span class="rating-count">({{ salon.reviews }})</span>
+                    </div>
+                    <div class="salon-tags">
+                        <span class="tag" *ngFor="let tag of salon.tags">{{ tag }}</span>
+                    </div>
+                    <button class="btn-outline-gold book-btn">Book Now</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="view-all-wrap">
+            <a routerLink="/explore" class="btn-outline-gold">View all salons →</a>
+        </div>
+
+    </div>
+</section>

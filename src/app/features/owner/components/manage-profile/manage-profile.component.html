@@ -1,0 +1,126 @@
+<!-- manage-profile.component.html -->
+<div class="manager-page">
+
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Salon Profile</h2>
+            <p class="page-sub">Update how your salon appears to clients</p>
+        </div>
+        <button class="btn-gold save-btn" (click)="save()" [disabled]="saving">
+            {{ saving ? 'Saving…' : 'Save changes' }}
+        </button>
+    </div>
+
+    <ng-container *ngIf="ownerData.salon$ | async as salon">
+
+        <div class="profile-grid">
+
+            <!-- Left column -->
+            <div class="profile-col">
+
+                <div class="section-card">
+                    <h3 class="section-title">Basic Information</h3>
+
+                    <div class="field-wrap">
+                        <label class="field-label">Salon name</label>
+                        <input class="field-input" type="text" [(ngModel)]="draft.name" placeholder="Salon name">
+                    </div>
+
+                    <div class="two-col">
+                        <div class="field-wrap">
+                            <label class="field-label">Area</label>
+                            <select class="field-input field-select" [(ngModel)]="draft.area">
+                                <option *ngFor="let a of areas" [value]="a">{{ a }}</option>
+                            </select>
+                        </div>
+                        <div class="field-wrap">
+                            <label class="field-label">Price range</label>
+                            <select class="field-input field-select" [(ngModel)]="draft.priceLevel">
+                                <option [value]="1">₹ Budget</option>
+                                <option [value]="2">₹₹ Moderate</option>
+                                <option [value]="3">₹₹₹ Premium</option>
+                                <option [value]="4">₹₹₹₹ Luxury</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="field-label">Full address</label>
+                        <input class="field-input" type="text" [(ngModel)]="draft.address">
+                    </div>
+
+                    <div class="two-col">
+                        <div class="field-wrap">
+                            <label class="field-label">Phone</label>
+                            <input class="field-input" type="tel" [(ngModel)]="draft.phone">
+                        </div>
+                        <div class="field-wrap">
+                            <label class="field-label">Email</label>
+                            <input class="field-input" type="email" [(ngModel)]="draft.email">
+                        </div>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="field-label">Description</label>
+                        <textarea class="field-input field-textarea" [(ngModel)]="draft.description"
+                            rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="section-title">Amenities</h3>
+                    <div class="amenity-row">
+                        <label class="amenity-label">
+                            <input type="checkbox" [(ngModel)]="draft.parking">
+                            <span class="amenity-icon">🅿</span>
+                            <span>Parking available</span>
+                        </label>
+                        <label class="amenity-label">
+                            <input type="checkbox" [(ngModel)]="draft.wifi">
+                            <span class="amenity-icon">📶</span>
+                            <span>Free Wi-Fi</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right column: preview -->
+            <div class="profile-col">
+                <div class="section-card preview-section">
+                    <h3 class="section-title">Live preview</h3>
+                    <div class="preview-card">
+                        <div class="preview-image">
+                            <div class="preview-avatar">{{ draft.name?.[0] || salon.name[0] }}</div>
+                            <span class="preview-price">{{ '₹'.repeat(draft.priceLevel || salon.priceLevel) }}</span>
+                        </div>
+                        <div class="preview-body">
+                            <h4 class="preview-name">{{ draft.name || salon.name }}</h4>
+                            <p class="preview-area">◎ {{ draft.area || salon.area }}</p>
+                            <p class="preview-desc">{{ draft.description || salon.description | slice:0:120 }}…</p>
+                            <div class="preview-amenities">
+                                <span *ngIf="draft.parking ?? salon.parking">🅿 Parking</span>
+                                <span *ngIf="draft.wifi ?? salon.wifi">📶 Wi-Fi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h3 class="section-title">Publication status</h3>
+                    <div class="status-row">
+                        <div class="status-info">
+                            <span class="status-dot" [class.live]="salon.status === 'live'">●</span>
+                            <span class="status-label">{{ salon.status === 'live' ? 'Live on LuxeSalon' : 'Draft — not
+                                visible' }}</span>
+                        </div>
+                        <a [href]="'/salon/' + salon.id" target="_blank" class="view-link">View live page ↗</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </ng-container>
+
+</div>

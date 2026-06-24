@@ -1,0 +1,44 @@
+<div class="booking-footer" [class.visible]="visible" *ngIf="svc.booking$ | async as b">
+
+    <div class="bf-inner">
+
+        <div class="bf-left">
+            <span class="bf-label">Your selection</span>
+            <div class="bf-details">
+
+                <div class="bf-item" *ngIf="b.service; else noService">
+                    <span class="bf-item-label">Service</span>
+                    <span class="bf-item-val">{{ b.service.name }}</span>
+                </div>
+                <ng-template #noService>
+                    <span class="bf-empty">No service selected yet</span>
+                </ng-template>
+
+                <div class="bf-sep" *ngIf="b.stylist">·</div>
+                <div class="bf-item" *ngIf="b.stylist">
+                    <span class="bf-item-label">Stylist</span>
+                    <span class="bf-item-val">{{ b.stylist.name }}</span>
+                </div>
+
+                <div class="bf-sep" *ngIf="b.time">·</div>
+                <div class="bf-item" *ngIf="b.time">
+                    <span class="bf-item-label">Time</span>
+                    <span class="bf-item-val">{{ b.date }}, {{ b.time }}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="bf-right">
+            <div class="bf-price" *ngIf="b.service">
+                <span class="bf-price-label">Total</span>
+                <span class="bf-price-val">₹{{ svc.totalPrice | number }}</span>
+            </div>
+            <button class="btn-gold bf-confirm" [disabled]="!svc.isBookingReady" (click)="confirm()">
+                {{ svc.isBookingReady ? 'Confirm Booking →' : 'Select service & time' }}
+            </button>
+        </div>
+
+    </div>
+
+</div>

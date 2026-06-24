@@ -1,0 +1,39 @@
+<div class="profile-header">
+    <div class="header-inner" *ngIf="svc.user$ | async as user">
+
+        <div class="avatar-ring" [style.border-color]="tierColor">
+            <div class="avatar">{{ user.avatar }}</div>
+        </div>
+
+        <div class="user-info" *ngIf="!editing">
+            <div class="user-top">
+                <h1 class="user-name">{{ user.name }}</h1>
+                <span class="tier-badge" [style.color]="tierColor" [style.border-color]="tierColor">
+                    {{ user.loyaltyTier }} Member
+                </span>
+            </div>
+            <p class="user-email">{{ user.email }}</p>
+            <p class="user-meta">
+                {{ user.phone }} · Member since {{ user.memberSince }}
+            </p>
+            <button class="edit-btn" (click)="startEdit()">Edit profile</button>
+        </div>
+
+        <div class="edit-form" *ngIf="editing">
+            <div class="edit-row">
+                <input class="edit-input" [(ngModel)]="editName" placeholder="Full name">
+                <input class="edit-input" [(ngModel)]="editEmail" placeholder="Email" type="email">
+                <input class="edit-input" [(ngModel)]="editPhone" placeholder="Phone">
+            </div>
+            <div class="edit-actions">
+                <button class="btn-gold save-btn" (click)="saveEdit()">
+                    Save changes
+                </button>
+                <button class="cancel-btn" (click)="editing = false">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

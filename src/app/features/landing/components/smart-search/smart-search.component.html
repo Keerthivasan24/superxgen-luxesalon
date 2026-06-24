@@ -1,0 +1,60 @@
+<section class="search-section section-pad">
+    <div class="container-fluid">
+
+        <div class="section-header">
+            <p class="eyebrow">Find your perfect salon</p>
+            <h2>Book your luxury experience</h2>
+            <div class="gold-rule"></div>
+        </div>
+
+        <div class="search-bar">
+
+            <div class="search-field">
+                <span class="field-icon">✂</span>
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Service</mat-label>
+                    <input matInput [formControl]="serviceCtrl" [matAutocomplete]="serviceAuto"
+                        placeholder="Hair cut, Facial…">
+                    <mat-autocomplete #serviceAuto="matAutocomplete">
+                        <mat-option *ngFor="let s of filteredServices | async" [value]="s">{{ s }}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div class="search-divider"></div>
+
+            <div class="search-field">
+                <span class="field-icon">◎</span>
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Area</mat-label>
+                    <input matInput [formControl]="areaCtrl" [matAutocomplete]="areaAuto" placeholder="Koramangala…">
+                    <mat-autocomplete #areaAuto="matAutocomplete">
+                        <mat-option *ngFor="let a of filteredAreas | async" [value]="a">{{ a }}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div class="search-divider"></div>
+
+            <div class="search-field">
+                <span class="field-icon">◷</span>
+                <mat-form-field appearance="outline" class="custom-field">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <button class="btn-gold search-btn" (click)="search()">Search</button>
+
+        </div>
+
+        <div class="quick-tags">
+            <span class="qtag-label">Popular:</span>
+            <button class="qtag" *ngFor="let s of ['Bridal Makeup','Balayage','Keratin','Facial']"
+                (click)="serviceCtrl.setValue(s); search()">{{ s }}</button>
+        </div>
+
+    </div>
+</section>

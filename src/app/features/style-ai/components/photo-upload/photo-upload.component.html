@@ -1,0 +1,74 @@
+<section class="upload-page">
+
+    <div class="upload-inner">
+
+        <!-- Back -->
+        <button class="back-btn" (click)="svc.goTo('hero')">← Back</button>
+
+        <div class="upload-header">
+            <h1>Upload your photo</h1>
+            <p>Our AI will analyse your face shape and recommend the perfect styles</p>
+        </div>
+
+        <!-- Drop zone -->
+        <div class="drop-zone" *ngIf="!preview" [class.dragging]="isDragging" (click)="openPicker()"
+            (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave()" role="button"
+            tabindex="0" aria-label="Upload photo">
+
+            <div class="dz-icon">⬆</div>
+            <p class="dz-title">Drop your photo here</p>
+            <p class="dz-sub">or click to browse · JPG, PNG, WEBP · Max 5MB</p>
+            <button class="dz-btn" (click)="openPicker(); $event.stopPropagation()">
+                Choose photo
+            </button>
+
+            <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileChange($event)">
+        </div>
+
+        <!-- Error -->
+        <p class="upload-error" *ngIf="error">{{ error }}</p>
+
+        <!-- Preview -->
+        <div class="preview-wrap" *ngIf="preview">
+
+            <div class="preview-img-wrap">
+                <img [src]="preview" alt="Your photo" class="preview-img">
+                <div class="ripple-overlay" aria-hidden="true">
+                    <div class="ripple r1"></div>
+                    <div class="ripple r2"></div>
+                    <div class="ripple r3"></div>
+                </div>
+                <button class="clear-btn" (click)="clearPreview()" aria-label="Remove photo">✕</button>
+            </div>
+
+            <div class="preview-actions">
+                <p class="preview-note">
+                    ✓ Photo ready — your image is processed locally and never stored
+                </p>
+                <button class="btn-gold analyse-btn" (click)="analyse()">
+                    Analyse my style →
+                </button>
+                <button class="btn-outline-gold" (click)="clearPreview()">
+                    Choose different photo
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Or divider -->
+        <div class="or-row" *ngIf="!preview">
+            <div class="or-line"></div>
+            <span class="or-text">or</span>
+            <div class="or-line"></div>
+        </div>
+
+        <div class="quiz-nudge" *ngIf="!preview">
+            <p>Don't want to upload a photo?</p>
+            <button class="quiz-link" (click)="svc.goTo('quiz')">
+                Take the style quiz instead →
+            </button>
+        </div>
+
+    </div>
+
+</section>

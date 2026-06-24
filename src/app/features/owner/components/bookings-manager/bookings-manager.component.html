@@ -1,0 +1,78 @@
+<!-- bookings-manager.component.html -->
+<div class="manager-page">
+
+    <div class="page-header">
+        <div>
+            <h2 class="page-title">Bookings</h2>
+            <p class="page-sub">Manage all client appointments</p>
+        </div>
+        <!-- Filter tabs -->
+        <div class="filter-tabs">
+            <button class="filter-tab" *ngFor="let f of filters" [class.active]="activeFilter === f"
+                (click)="activeFilter = f">
+                {{ f | titlecase }}
+            </button>
+        </div>
+    </div>
+
+    <ng-container *ngIf="ownerData.bookings$ | async as bookings">
+
+        <div class="bookings-list">
+            <ng-container *ngFor="let b of getFiltered(bookings)">
+                <div class="booking-card" [class]="'status-' + b.status">
+
+                    <div class="booking-id-col">
+                        <span class="bid">{{ b.id }}</span>
+                        <span class="bstatus" [ngClass]="'badge-' + b.status">{{ b.status }}</span>
+                    </div>
+
+                    <div class="booking-main">
+                        <div class="client-row">
+                            <div class="client-avatar">{{ b.clientName[0] }}</div>
+                            <div>
+                                <p class="client-name">{{ b.clientName }}</p>
+                                <p class="booking-service-text">{{ b.service }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-details">
+                        <div class="detail-item">
+                            <span class="detail-lbl">Stylist</span>
+                            <span class="detail-val">{{ b.stylist }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-lbl">Date & Time</span>
+                            <span class="detail-val">{{ b.date }} · {{ b.time }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-lbl">Amount</span>
+                            <span class="detail-val amount">₹{{ b.amount | number }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions for upcoming -->
+                    <div class="booking-actions" *ngIf="b.status === 'upcoming'">
+                        <button class="action-btn complete-btn"
+                            (click)="ownerData.updateBookingStatus(b.id, 'completed')">
+                            ✓ Complete
+                        </button>
+                        <button class="action-btn cancel-btn"
+                            (click)="ownerData.updateBookingStatus(b.id, 'cancelled')">
+                            ✕ Cancel
+                        </button>
+                    </div>
+
+                </div>
+            </ng-container>
+
+            <div class="empty-state" *ngIf="getFiltered(bookings).length === 0">
+                <span class="empty-icon">◷</span>
+                <h3>No {{ activeFilter }} bookings</h3>
+                <p>They'll appear here when clients book your services</p>
+            </div>
+        </div>
+
+    </ng-container>
+
+</div>

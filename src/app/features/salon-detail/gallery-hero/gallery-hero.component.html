@@ -1,0 +1,76 @@
+<section class="gallery-hero">
+
+    <!-- Parallax background -->
+    <div class="hero-bg" #heroInner [style.background]="gradients[activeThumb]">
+        <div class="hero-letter">{{ letters[activeThumb] }}</div>
+    </div>
+
+    <!-- Dark gradient overlay -->
+    <div class="hero-overlay"></div>
+
+    <!-- Content -->
+    <div class="hero-content">
+        <div class="hero-content-inner">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="breadcrumb">
+                <a routerLink="/">Home</a>
+                <span>›</span>
+                <a routerLink="/explore">Explore</a>
+                <span>›</span>
+                <span>{{ salon.name }}</span>
+            </nav>
+
+            <!-- Badge + open tag -->
+            <div class="hero-tags">
+                <span class="salon-badge" *ngIf="salon.badge">{{ salon.badge }}</span>
+                <span class="open-tag" [class.closed]="!salon.openNow">
+                    {{ salon.openNow ? '● Open now' : '● Closed' }}
+                </span>
+            </div>
+
+            <!-- Name -->
+            <h1 class="salon-name">{{ salon.name }}</h1>
+            <p class="salon-tagline">{{ salon.tagline }}</p>
+
+            <!-- Meta row -->
+            <div class="hero-meta">
+                <span class="meta-rating">
+                    <span class="star">★</span> {{ salon.rating }}
+                    <span class="meta-dim">({{ salon.reviews }} reviews)</span>
+                </span>
+                <span class="meta-sep">·</span>
+                <span class="meta-area">◎ {{ salon.area }}</span>
+                <span class="meta-sep">·</span>
+                <span class="meta-price">{{ priceStr }}</span>
+                <span class="meta-sep">·</span>
+                <span class="meta-years">{{ salon.yearsOpen }} years of excellence</span>
+            </div>
+
+            <!-- CTA row -->
+            <div class="hero-actions">
+                <a routerLink="/book" [queryParams]="{ salonId: salon.id }" class="btn-gold">
+                    Book Appointment
+                </a>
+                <button class="btn-outline-gold" (click)="toggleSave()">
+                    {{ saved ? '♥ Saved' : '♡ Save' }}
+                </button>
+                <button class="action-icon-btn" aria-label="Share">
+                    <span>↗</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="thumb-strip">
+        <button class="thumb" *ngFor="let g of gradients; let i = index" [class.active]="activeThumb === i"
+            (click)="selectThumb(i)" [attr.aria-label]="'View image ' + (i + 1)">
+            <div class="thumb-inner" [style.background]="g">
+                <span>{{ letters[i] }}</span>
+            </div>
+        </button>
+    </div>
+
+</section>

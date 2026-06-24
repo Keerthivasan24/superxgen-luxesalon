@@ -1,0 +1,38 @@
+<section class="services-section">
+
+    <div class="section-label">Services & Pricing</div>
+    <h2 class="section-title">What we offer</h2>
+    <div class="gold-rule"></div>
+
+    <!-- Category tabs -->
+    <div class="category-tabs" role="tablist">
+        <button class="cat-tab" *ngFor="let cat of salon.serviceCategories" [class.active]="activeTab === cat.id"
+            (click)="activeTab = cat.id" role="tab" [attr.aria-selected]="activeTab === cat.id">
+            {{ cat.label }}
+        </button>
+    </div>
+
+    <!-- Service rows -->
+    <div class="service-list" role="tabpanel">
+        <div class="service-row" *ngFor="let s of activeServices" [class.selected]="isSelected(s)" (click)="select(s)">
+
+            <div class="sr-left">
+                <div class="sr-name-row">
+                    <span class="sr-name">{{ s.name }}</span>
+                    <span class="popular-pill" *ngIf="s.popular">Popular</span>
+                </div>
+                <span class="sr-desc">{{ s.description }}</span>
+                <span class="sr-duration">⏱ {{ formatDuration(s.duration) }}</span>
+            </div>
+
+            <div class="sr-right">
+                <span class="sr-price">₹{{ s.price | number }}</span>
+                <button class="add-btn" [class.added]="isSelected(s)" (click)="select(s); $event.stopPropagation()">
+                    {{ isSelected(s) ? '✓ Added' : '+ Add' }}
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</section>

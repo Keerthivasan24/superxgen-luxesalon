@@ -1,0 +1,78 @@
+<article class="trend-card" [class.featured-card]="featured" #cardEl (mousemove)="onMouseMove($event, cardEl)"
+    (mouseleave)="onMouseLeave(cardEl)" role="article">
+
+    <div class="trend-shine"></div>
+
+    <!-- Card image area -->
+    <div class="trend-visual" [style.background]="trend.gradient">
+        <div class="trend-icon">{{ trend.icon }}</div>
+
+        <!-- Badge -->
+        <div class="trend-badge" [ngClass]="badgeClass" *ngIf="trend.badge">
+            {{ trend.badge }}
+        </div>
+
+        <!-- Hot indicator -->
+        <div class="hot-indicator" *ngIf="trend.isHot">
+            <span class="hot-dot"></span>
+            <span>{{ trend.bookingsThisWeek }} booked this week</span>
+        </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="trend-body">
+
+        <div class="trend-top">
+            <div class="trend-meta">
+                <h3 class="trend-title">{{ trend.title }}</h3>
+                <p class="trend-subtitle">{{ trend.subtitle }}</p>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="trend-tags">
+            <span class="trend-tag" *ngFor="let tag of trend.tags">{{ tag.label }}</span>
+        </div>
+
+        <!-- Details (shown on featured) -->
+        <p class="trend-desc" *ngIf="featured">{{ trend.description }}</p>
+
+        <!-- Stats row -->
+        <div class="trend-stats">
+            <div class="stat">
+                <span class="stat-val">{{ trend.salonCount }}</span>
+                <span class="stat-lbl">salons</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-val">{{ trend.avgPrice }}</span>
+                <span class="stat-lbl">avg price</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-val">{{ trend.timeRequired }}</span>
+                <span class="stat-lbl">duration</span>
+            </div>
+        </div>
+
+        <!-- Top salons offering this -->
+        <div class="offering-salons" *ngIf="featured">
+            <span class="offering-label">Available at</span>
+            <div class="salon-avatars">
+                <span class="salon-avatar-chip" *ngFor="let name of trend.salonNames">
+                    {{ name[0] }}
+                </span>
+                <span class="salon-names-text">{{ trend.salonNames.join(', ') }}</span>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="trend-cta">
+            <button class="btn-gold explore-btn" (click)="goToExplore()">
+                Explore salons →
+            </button>
+        </div>
+
+    </div>
+
+</article>

@@ -1,0 +1,30 @@
+<div class="wizard-page">
+
+    <div class="wizard-header">
+        <h1>Register your salon</h1>
+        <p>Complete all 5 steps to list your salon on LuxeSalon</p>
+    </div>
+
+    <!-- Step progress bar -->
+    <div class="wizard-steps">
+        <div class="step-item" *ngFor="let s of steps; let i = index" [class.done]="currentStep > i"
+            [class.active]="currentStep === i">
+            <div class="step-bubble">
+                <span *ngIf="currentStep <= i">{{ i + 1 }}</span>
+                <span *ngIf="currentStep > i">✓</span>
+            </div>
+            <span class="step-label">{{ s }}</span>
+            <div class="step-connector" *ngIf="i < steps.length - 1"></div>
+        </div>
+    </div>
+
+    <!-- Step content -->
+    <div class="wizard-body">
+        <app-step-basic-info *ngIf="currentStep === 0" [form]="form" (next)="next()"></app-step-basic-info>
+        <app-step-services *ngIf="currentStep === 1" [form]="form" (next)="next()" (back)="back()"></app-step-services>
+        <app-step-photos *ngIf="currentStep === 2" [form]="form" (next)="next()" (back)="back()"></app-step-photos>
+        <app-step-hours *ngIf="currentStep === 3" [form]="form" (next)="next()" (back)="back()"></app-step-hours>
+        <app-step-review *ngIf="currentStep === 4" [form]="form" (submit)="submit()" (back)="back()"></app-step-review>
+    </div>
+
+</div>

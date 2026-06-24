@@ -1,0 +1,50 @@
+<div class="visual-panel">
+
+    <!-- Three.js canvas -->
+    <canvas #visualCanvas class="visual-canvas"></canvas>
+
+    <!-- Overlay content -->
+    <div class="visual-overlay">
+
+
+        <!-- Tagline -->
+        <div class="visual-tagline">
+            <h2>Where luxury<br><span class="gold">meets artistry</span></h2>
+            <div class="gold-rule"></div>
+            <p>Bangalore's most exclusive salon booking platform</p>
+        </div>
+
+        <!-- Trust points -->
+        <div class="trust-points">
+            <div class="trust-item">
+                <span class="trust-icon">✦</span>
+                <span>340+ luxury salons curated</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✦</span>
+                <span>Instant confirmed bookings</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✦</span>
+                <span>AI-powered style recommendations</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">✦</span>
+                <span>Exclusive loyalty rewards</span>
+            </div>
+        </div>
+
+        <!-- Rotating review -->
+        <div class="review-block">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"{{ reviews[currentReview].text }}"</p>
+            <p class="review-author">— {{ reviews[currentReview].author }}</p>
+            <div class="review-dots">
+                <span class="dot" *ngFor="let r of reviews; let i = index" [class.active]="i === currentReview">
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,107 @@
+.loyalty-card {
+  border: 1px solid rgba(201,168,76,.2);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.lc-header {
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(201,168,76,.08);
+}
+
+.tier-info { display: flex; flex-direction: column; gap: 2px; }
+
+.tier-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: .04em;
+}
+
+.tier-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.points-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.points-val {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.points-lbl {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+/* Progress */
+.progress-section {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(201,168,76,.06);
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.next-tier { color: var(--text-secondary); }
+
+.progress-track {
+  height: 4px;
+  background: rgba(255,255,255,.06);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width .8s cubic-bezier(.4,0,.2,1);
+}
+
+.progress-note {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Perks */
+.perks-list { padding: 14px 18px; }
+
+.perks-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.perk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.perk-check { font-size: 11px; font-weight: 600; }
+.perk-text  { font-size: 12px; color: var(--text-secondary); }

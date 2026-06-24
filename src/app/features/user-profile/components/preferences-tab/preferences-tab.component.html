@@ -1,0 +1,57 @@
+<div class="prefs-tab">
+
+    <div class="tab-header">
+        <div>
+            <h2 class="tab-title">Style Preferences</h2>
+            <p class="tab-sub">We use these to personalise your recommendations</p>
+        </div>
+        <button class="btn-gold save-prefs-btn" (click)="save()" [class.saved]="saved">
+            {{ saved ? '✓ Saved!' : 'Save preferences' }}
+        </button>
+    </div>
+
+    <!-- Preferences grid -->
+    <div class="prefs-grid" *ngIf="svc.prefs$ | async as prefs">
+        <button class="pref-chip" *ngFor="let p of prefs" [class.selected]="p.selected" (click)="svc.togglePref(p.id)">
+            <span class="chip-check" *ngIf="p.selected">✓</span>
+            {{ p.label }}
+        </button>
+    </div>
+
+    <!-- Notification preferences -->
+    <div class="notif-section">
+        <p class="notif-title">Notification preferences</p>
+
+        <div class="notif-row">
+            <div class="notif-info">
+                <span class="notif-label">Booking reminders</span>
+                <span class="notif-desc">Get reminded 2 hours before your appointment</span>
+            </div>
+            <div class="toggle-wrap on">
+                <div class="toggle-knob"></div>
+            </div>
+        </div>
+
+        <div class="notif-row">
+            <div class="notif-info">
+                <span class="notif-label">Exclusive offers</span>
+                <span class="notif-desc">Flash sales and loyalty rewards</span>
+            </div>
+            <div class="toggle-wrap on">
+                <div class="toggle-knob"></div>
+            </div>
+        </div>
+
+        <div class="notif-row">
+            <div class="notif-info">
+                <span class="notif-label">Trend updates</span>
+                <span class="notif-desc">New looks and trending styles in Bangalore</span>
+            </div>
+            <div class="toggle-wrap">
+                <div class="toggle-knob"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

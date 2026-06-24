@@ -1,0 +1,43 @@
+<div class="loyalty-card" *ngIf="svc.user$ | async as user" [style.border-color]="svc.tierConfig.color + '44'">
+
+    <!-- Tier header -->
+    <div class="lc-header" [style.background]="svc.tierConfig.bg">
+        <div class="tier-info">
+            <span class="tier-name" [style.color]="svc.tierConfig.color">
+                {{ user.loyaltyTier }}
+            </span>
+            <span class="tier-sub">Loyalty Member</span>
+        </div>
+        <div class="points-display">
+            <span class="points-val" [style.color]="svc.tierConfig.color">
+                {{ user.loyaltyPoints }}
+            </span>
+            <span class="points-lbl">points</span>
+        </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-section">
+        <div class="progress-labels">
+            <span>{{ user.loyaltyTier }}</span>
+            <span class="next-tier">{{ svc.nextTier }}</span>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" [style.width.%]="svc.loyaltyProgress" [style.background]="svc.tierConfig.color">
+            </div>
+        </div>
+        <p class="progress-note">
+            {{ svc.pointsToNextTier }} more points to reach {{ svc.nextTier }}
+        </p>
+    </div>
+
+    <!-- Perks -->
+    <div class="perks-list">
+        <p class="perks-label">Your perks</p>
+        <div class="perk-item" *ngFor="let perk of svc.tierConfig.perks">
+            <span class="perk-check" [style.color]="svc.tierConfig.color">✓</span>
+            <span class="perk-text">{{ perk }}</span>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,26 @@
+<div class="style-ai-page">
+
+    <ng-container [ngSwitch]="svc.view$ | async">
+
+        <!-- Hero -->
+        <ng-container *ngSwitchCase="'hero'">
+            <app-ai-hero></app-ai-hero>
+            <app-style-gallery></app-style-gallery>
+        </ng-container>
+
+        <!-- Upload -->
+        <app-photo-upload *ngSwitchCase="'upload'"></app-photo-upload>
+
+        <!-- Quiz -->
+        <app-style-quiz *ngSwitchCase="'quiz'"></app-style-quiz>
+
+        <!-- Loading -->
+        <app-ai-loading *ngSwitchCase="'loading'"></app-ai-loading>
+
+        <!-- Results -->
+        <app-ai-results *ngSwitchCase="'results'" [result]="(svc.result$ | async)!">
+        </app-ai-results>
+
+    </ng-container>
+
+</div>

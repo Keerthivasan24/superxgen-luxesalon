@@ -1,0 +1,74 @@
+<!-- step-services.component.html -->
+<div class="step-card">
+    <div>
+        <h2 class="step-title">Services</h2>
+        <p class="step-sub">Add the services your salon offers (at least one required)</p>
+    </div>
+
+    <!-- Existing services -->
+    <div class="services-list" *ngIf="form.services.length > 0">
+        <div class="service-row" *ngFor="let svc of form.services; let i = index">
+            <div class="service-row-info">
+                <span class="svc-name">{{ svc.name }}</span>
+                <span class="svc-meta">{{ svc.category }} · {{ svc.duration }} min · ₹{{ svc.price }}</span>
+            </div>
+            <button class="svc-delete" (click)="removeService(i)">✕</button>
+        </div>
+    </div>
+
+    <div class="empty-svc" *ngIf="form.services.length === 0">
+        No services added yet. Add your first service below.
+    </div>
+
+    <!-- Add new service -->
+    <div class="add-service-block">
+        <h3 class="add-title">Add service</h3>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Service name *</label>
+                <input class="field-input" type="text" [(ngModel)]="newSvc.name" placeholder="Full Head Balayage">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Category *</label>
+                <mat-select class="field-input field-select" [(ngModel)]="newSvc.category"
+                    placeholder="Select category">
+                    <mat-option value="" disabled>Select category</mat-option>
+                    <mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <div class="field-wrap">
+                <label class="field-label">Duration (minutes) *</label>
+                <input class="field-input" type="number" [(ngModel)]="newSvc.duration" placeholder="60" min="15">
+            </div>
+            <div class="field-wrap">
+                <label class="field-label">Price (₹) *</label>
+                <input class="field-input" type="number" [(ngModel)]="newSvc.price" placeholder="1200" min="0">
+            </div>
+        </div>
+
+        <div class="field-wrap">
+            <label class="field-label">Description</label>
+            <input class="field-input" type="text" [(ngModel)]="newSvc.description"
+                placeholder="Brief description of the service">
+        </div>
+
+        <button class="btn-add-svc" (click)="addService()">+ Add service</button>
+    </div>
+
+    <div class="no-svc-alert" *ngIf="showAlert">
+        <div class="alert-icon">!</div>
+        <div class="alert-text">
+            <strong>No services added</strong>
+            Please add at least one service before continuing.
+        </div>
+    </div>
+
+    <div class="step-actions">
+        <button class="btn-back" (click)="back.emit()">← Back</button>
+        <button class="btn-next" (click)="onNext()">Next: Photos →</button>
+    </div>
+</div>

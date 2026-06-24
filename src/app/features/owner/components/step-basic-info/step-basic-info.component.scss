@@ -1,0 +1,98 @@
+/* step-basic-info.component.scss */
+
+/* Inherits shared wizard classes from register-salon.component.scss:
+   .step-card, .step-title, .step-sub, .field-wrap, .field-label,
+   .field-input, .field-select, .field-textarea, .two-col,
+   .step-actions, .btn-back, .btn-next
+   — all defined in the parent. This file adds step-specific overrides. */
+
+:host {
+  display: block;
+}
+
+/* Ensure the step card fills available width */
+.step-card {
+  animation: step-in 0.22s ease;
+}
+
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Price level selector — visual chips instead of plain select */
+.price-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.price-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all 0.15s;
+
+  .chip-price  { font-size: 14px; color: var(--text-secondary); }
+  .chip-label  { font-size: 9px; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  &:hover {
+    border-color: rgba(201, 168, 76, 0.4);
+    background: rgba(201, 168, 76, 0.04);
+  }
+
+  &.active {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.08);
+
+    .chip-price { color: var(--gold); }
+    .chip-label { color: var(--gold); }
+  }
+}
+
+/* Character counter for description */
+.desc-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+
+  span {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Validation error highlight */
+.field-wrap.has-error {
+  .field-input,
+  .field-select,
+  .field-textarea {
+    border-color: rgba(231, 76, 124, 0.5);
+  }
+}
+
+.field-err {
+  font-size: 10px;
+  color: #e74c7c;
+  letter-spacing: 0.04em;
+  margin-top: -4px;
+}
+
+/* Step actions override — align right with no back button on step 1 */
+.step-actions {
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .price-chips { flex-wrap: wrap; }
+  .price-chip  { min-width: calc(50% - 4px); }
+}

@@ -1,0 +1,68 @@
+<section class="gallery-section">
+    <div class="gallery-inner">
+
+        <div class="gallery-header">
+            <p class="eyebrow">Trending in Bangalore</p>
+            <h2>Style gallery</h2>
+            <div class="gold-rule"></div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-groups">
+
+            <div class="filter-group">
+                <span class="fg-label">Face shape</span>
+                <div class="filter-chips">
+                    <button class="fchip" *ngFor="let f of faceShapes" [class.active]="activeFace === f"
+                        (click)="activeFace = f">
+                        {{ f }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <span class="fg-label">Occasion</span>
+                <div class="filter-chips">
+                    <button class="fchip" *ngFor="let o of occasions" [class.active]="activeOccasion === o"
+                        (click)="activeOccasion = o">
+                        {{ o }}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Grid -->
+        <div class="gallery-grid">
+            <div class="gallery-card" *ngFor="let look of filtered; let i = index"
+                [style.background]="gradients[i % gradients.length]">
+
+                <div class="card-letter">{{ look.title[0] }}</div>
+
+                <div class="card-overlay">
+                    <div class="card-info">
+                        <span class="card-title">{{ look.title }}</span>
+                        <span class="card-meta">{{ look.faceShape }} · {{ look.hairType }}</span>
+                        <span class="card-salon">{{ look.salon }}</span>
+                    </div>
+                    <span class="card-occasion">{{ look.occasion }}</span>
+                </div>
+
+            </div>
+
+            <!-- Empty -->
+            <div class="gallery-empty" *ngIf="filtered.length === 0">
+                <p>No looks found for this combination</p>
+            </div>
+        </div>
+
+        <!-- Get my looks CTA -->
+        <div class="gallery-cta">
+            <p>Want looks personalised for your face shape?</p>
+            <button class="btn-gold" (click)="svc.goTo('upload')">
+                Get my personalised looks →
+            </button>
+        </div>
+
+    </div>
+</section>

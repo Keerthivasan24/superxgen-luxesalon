@@ -1,0 +1,82 @@
+<div class="step-review">
+
+    <div class="step-heading">
+        <h2>Review your booking</h2>
+        <p>Confirm all details before continuing</p>
+    </div>
+
+    <!-- Salon card -->
+    <div class="review-card">
+        <div class="rc-label">Salon</div>
+        <div class="rc-content salon-row">
+            <div class="salon-avatar">{{ payload.salonName?.[0] }}</div>
+            <div class="salon-info">
+                <span class="salon-name">{{ payload.salonName }}</span>
+                <span class="salon-meta">Koramangala · ₹₹₹₹</span>
+            </div>
+            <button class="edit-btn" (click)="editSalon()">Change</button>
+        </div>
+    </div>
+
+    <!-- Service card -->
+    <div class="review-card">
+        <div class="rc-label">Service</div>
+        <div class="rc-content">
+            <div class="service-row">
+                <div class="service-info">
+                    <span class="service-name">{{ payload.serviceName }}</span>
+                    <span class="service-meta">
+                        {{ svc.formatDuration(payload.serviceDuration ?? 0) }}
+                    </span>
+                </div>
+                <div class="service-price">₹{{ payload.servicePrice | number }}</div>
+                <button class="edit-btn" (click)="editService()">Change</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stylist card -->
+    <div class="review-card">
+        <div class="rc-label">Stylist</div>
+        <div class="rc-content stylist-row">
+            <div class="stylist-avatar" *ngIf="payload.stylistName">
+                {{ payload.stylistName[0] }}
+            </div>
+            <div class="stylist-info">
+                <span class="stylist-name" *ngIf="payload.stylistName">{{ payload.stylistName }}</span>
+                <span class="stylist-name any" *ngIf="!payload.stylistName">Any available stylist</span>
+                <span class="stylist-meta" *ngIf="payload.stylistName">Senior Stylist · 4.9★</span>
+            </div>
+            <button class="edit-btn" (click)="editStylist()">Change</button>
+        </div>
+    </div>
+
+    <!-- Date & Time card -->
+    <div class="review-card">
+        <div class="rc-label">Date & Time</div>
+        <div class="rc-content slot-row">
+            <div class="slot-info">
+                <div class="slot-date">
+                    <span class="slot-icon">◷</span>
+                    <span>{{ payload.date }}</span>
+                </div>
+                <div class="slot-time">{{ payload.time }}</div>
+            </div>
+            <button class="edit-btn" (click)="editSlot()">Change</button>
+        </div>
+    </div>
+
+    <!-- Policy note -->
+    <div class="policy-note">
+        <span class="policy-icon">◎</span>
+        <span>Free cancellation up to 2 hours before your appointment</span>
+    </div>
+
+    <!-- CTA -->
+    <div class="step-cta">
+        <button class="btn-gold cta-btn" (click)="svc.next()">
+            Continue to details →
+        </button>
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+<div class="owner-shell">
+
+    <!-- Sidebar -->
+    <aside class="owner-sidebar" [class.collapsed]="sidebarCollapsed">
+
+        <div class="sidebar-brand">
+            <span class="brand-luxe">LUXE</span><span class="brand-salon">SALON</span>
+            <span class="brand-tag" *ngIf="!sidebarCollapsed">Owner</span>
+        </div>
+
+        <div class="salon-info" *ngIf="ownerData.salon$ | async as salon">
+            <div class="salon-avatar">{{ salon.name[0] }}</div>
+            <div class="salon-meta" *ngIf="!sidebarCollapsed">
+                <p class="salon-meta-name">{{ salon.name }}</p>
+                <span class="salon-status" [class.live]="salon.status === 'live'">
+                    {{ salon.status === 'live' ? '● Live' : '◌ Draft' }}
+                </span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="nav-item" routerLink="/owner/dashboard" routerLinkActive="active">
+                <span class="nav-icon">⊞</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Dashboard</span>
+            </a>
+            <a class="nav-item" routerLink="/owner/profile" routerLinkActive="active">
+                <span class="nav-icon">◈</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Manage Profile</span>
+            </a>
+            <a class="nav-item" routerLink="/owner/services" routerLinkActive="active">
+                <span class="nav-icon">✦</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Services</span>
+            </a>
+            <a class="nav-item" routerLink="/owner/bookings" routerLinkActive="active">
+                <span class="nav-icon">◷</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Bookings</span>
+                <span class="nav-badge" *ngIf="!sidebarCollapsed && ownerData.todayBookings > 0">
+                    {{ ownerData.todayBookings }}
+                </span>
+            </a>
+            <a class="nav-item" routerLink="/owner/stylists" routerLinkActive="active">
+                <span class="nav-icon">◉</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Stylists</span>
+            </a>
+            <a class="nav-item" routerLink="/owner/analytics" routerLinkActive="active">
+                <span class="nav-icon">◆</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Analytics</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a class="nav-item view-live" [href]="'/salon/' + (ownerData.salon?.id ?? 1)" target="_blank">
+                <span class="nav-icon">↗</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">View live page</span>
+            </a>
+            <button class="nav-item logout-btn" (click)="logout()">
+                <span class="nav-icon">⇤</span>
+                <span class="nav-label" *ngIf="!sidebarCollapsed">Sign out</span>
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- Main area -->
+    <div class="owner-main">
+
+        <!-- Topbar -->
+        <header class="owner-topbar">
+            <button class="collapse-btn" (click)="sidebarCollapsed = !sidebarCollapsed">
+                {{ sidebarCollapsed ? '›' : '‹' }}
+            </button>
+
+            <div class="topbar-title">
+                <h1>{{ pageTitle }}</h1>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="topbar-user">
+                    <div class="topbar-avatar">{{ auth.user?.avatar }}</div>
+                    <div class="topbar-user-info">
+                        <span class="topbar-name">{{ auth.user?.name }}</span>
+                        <span class="topbar-role">Salon Owner</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page content -->
+        <main class="owner-content">
+            <router-outlet></router-outlet>
+        </main>
+
+    </div>
+
+</div>
